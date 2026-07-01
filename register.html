@@ -3,200 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuri Agency | Create Your Account</title>
-    <meta name="description" content="Create your account and join Zuri Agency to grow your wealth with confidence.">
+    <title>Register — Zuri Agency</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="min-h-screen bg-surface text-text-primary">
-    <div class="min-h-screen bg-surface text-text-primary">
-        <header class="sticky top-0 z-50 w-full transition-all duration-500 glass shadow-lg shadow-black/10">
-            <div class="container mx-auto flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                <a href="index.html" class="brand-mark text-sm sm:text-base">
-                    <span>Z</span>
-                    Zuri Agency
+<body class="bg-surface-alt">
+    <div class="min-h-screen flex items-center justify-center p-6">
+        <div class="max-w-md w-full">
+            <div class="text-center mb-8 anim-up">
+                <a href="index.html" class="inline-flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-white font-black text-xl">Z</div>
+                    <span class="font-bold text-2xl tracking-tight">Zuri<span class="text-brand">Agency</span></span>
                 </a>
-
-                <nav class="hidden items-center gap-1 md:flex">
-                    <a class="nav-link" href="index.html">Home</a>
-                    <a class="nav-link" href="index.html#how-it-works">How It Works</a>
-                    <a class="nav-link" href="index.html#success-stories">Success Stories</a>
-                    <a class="nav-link" href="index.html#pricing">Pricing</a>
-                    <a class="btn-primary inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold" href="index.html#get-started">Start Earning Now</a>
-                </nav>
-
-                <button id="mobileMenuButton" class="inline-flex items-center justify-center rounded-lg p-2 text-text-secondary transition hover:bg-surface-alt hover:text-text-primary md:hidden" aria-label="Toggle mobile menu" aria-expanded="false">
-                    <span class="text-xl">☰</span>
-                </button>
+                <h1 class="text-2xl font-bold">Create your account</h1>
+                <p class="text-text-secondary text-sm mt-2">Join 10k+ smart investors today.</p>
             </div>
 
-            <div id="mobileMenu" class="hidden border-t border-white/10 bg-surface/95 px-4 py-4 md:hidden">
-                <div class="flex flex-col gap-2">
-                    <a class="nav-link block rounded-lg px-3 py-2" href="index.html">Home</a>
-                    <a class="nav-link block rounded-lg px-3 py-2" href="index.html#how-it-works">How It Works</a>
-                    <a class="nav-link block rounded-lg px-3 py-2" href="index.html#success-stories">Success Stories</a>
-                    <a class="nav-link block rounded-lg px-3 py-2" href="index.html#pricing">Pricing</a>
-                    <a class="btn-primary mt-2 inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold" href="index.html#get-started">Start Earning Now</a>
-                </div>
-            </div>
-        </header>
-
-        <main class="container mx-auto grid gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-20">
-            <section class="register-hero max-w-2xl">
-                <div class="mb-4 inline-flex items-center rounded-full border border-amber-400/30 bg-amber-500/10 px-3 py-1 text-sm font-medium text-amber-200">
-                    Join 10k+ smart investors
-                </div>
-                <h1 class="text-gradient text-4xl font-semibold leading-tight sm:text-5xl">
-                    Open a free account and build your future with Zuri Agency.
-                </h1>
-                <p class="mt-4 max-w-xl text-lg text-slate-300 sm:text-xl">
-                    Create your profile in minutes, access verified investment opportunities, and track your wealth growth all in one place.
-                </p>
-                <ul class="mt-8 space-y-3 text-sm text-slate-300 sm:text-base">
-                    <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> Fast onboarding in under 3 minutes</li>
-                    <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> Secure and encrypted account protection</li>
-                    <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> Personalized guidance from the Zuri team</li>
-                </ul>
-            </section>
-
-            <section class="register-card w-full max-w-xl">
-                <div class="glass rounded-[1.75rem] p-6 shadow-2xl shadow-black/20 sm:p-8">
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-semibold">Create account</h2>
-                        <p class="mt-2 text-sm text-slate-400">Start with your details below and unlock access to premium investment tools.</p>
+            <div class="card anim-up delay-1">
+                <form id="registerForm" class="space-y-4" novalidate>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider mb-2" for="name">Full Name</label>
+                        <input class="register-input" id="name" type="text" placeholder="John Mwangi" required>
+                        <p class="register-error" id="nameError">Minimum 3 characters required.</p>
                     </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider mb-2" for="email">Email</label>
+                        <input class="register-input" id="email" type="email" placeholder="john@email.com" required>
+                        <p class="register-error" id="emailError">Invalid email address.</p>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider mb-2" for="phone">Phone Number</label>
+                        <input class="register-input" id="phone" type="tel" placeholder="0712 345 678" required>
+                        <p class="register-error" id="phoneError">Valid phone number required.</p>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider mb-2" for="password">Password</label>
+                        <input class="register-input" id="password" type="password" placeholder="••••••••" required>
+                        <p class="register-error" id="passwordError">Minimum 8 characters required.</p>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider mb-2" for="confirmPassword">Confirm Password</label>
+                        <input class="register-input" id="confirmPassword" type="password" placeholder="••••••••" required>
+                        <p class="register-error" id="confirmPasswordError">Passwords do not match.</p>
+                    </div>
+                    <button type="submit" class="btn-primary w-full py-3.5 mt-2">Create Account</button>
+                    <p id="successMessage" class="text-center text-accent-green font-bold hidden">Success! Redirecting...</p>
+                </form>
+            </div>
 
-                    <form id="registerForm" novalidate>
-                        <div class="mb-4">
-                            <label for="name" class="mb-2 block text-sm font-medium text-slate-200">Full Name</label>
-                            <input class="register-input" type="text" id="name" name="name" placeholder="Enter your full name" required>
-                            <div class="register-error" id="nameError">Name must be at least 3 characters.</div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="email" class="mb-2 block text-sm font-medium text-slate-200">Email Address</label>
-                            <input class="register-input" type="email" id="email" name="email" placeholder="Enter your email" required>
-                            <div class="register-error" id="emailError">Please enter a valid email address.</div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="phone" class="mb-2 block text-sm font-medium text-slate-200">Phone Number</label>
-                            <input class="register-input" type="tel" id="phone" name="phone" placeholder="e.g. 0712345678" required>
-                            <div class="register-error" id="phoneError">Please enter a valid phone number.</div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="password" class="mb-2 block text-sm font-medium text-slate-200">Password</label>
-                            <input class="register-input" type="password" id="password" name="password" placeholder="Create a secure password" required>
-                            <div class="register-error" id="passwordError">Password must be at least 8 characters.</div>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="confirmPassword" class="mb-2 block text-sm font-medium text-slate-200">Confirm Password</label>
-                            <input class="register-input" type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
-                            <div class="register-error" id="confirmPasswordError">Passwords do not match.</div>
-                        </div>
-
-                        <button type="submit" class="register-submit">Create account</button>
-                        <div class="register-success" id="successMessage">Registration successful. Welcome aboard, investor.</div>
-                    </form>
-
-                    <p class="mt-5 text-center text-sm text-slate-400">
-                        Already have an account? <a class="font-semibold text-amber-400 transition hover:text-amber-300" href="index.html">Sign in</a>
-                    </p>
-                </div>
-            </section>
-        </main>
+            <p class="text-center text-sm text-text-secondary mt-6 anim-up delay-2">
+                Already have an account? <a href="index.html" class="text-brand font-bold hover:underline">Sign in</a>
+            </p>
+        </div>
     </div>
-    <footer>
-        
-    </footer>
 
     <script src="script.js"></script>
-    <script>
-        const form = document.getElementById('registerForm');
-        const inputs = {
-            name: document.getElementById('name'),
-            email: document.getElementById('email'),
-            phone: document.getElementById('phone'),
-            password: document.getElementById('password'),
-            confirmPassword: document.getElementById('confirmPassword')
-        };
-
-        if (form) {
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                if (validateForm()) {
-                    const success = document.getElementById('successMessage');
-                    if (success) {
-                        success.classList.add('show');
-                    }
-                    form.reset();
-                    setTimeout(() => {
-                        if (success) {
-                            success.classList.remove('show');
-                        }
-                    }, 3000);
-                }
-            });
-        }
-
-        function validateForm() {
-            let isValid = true;
-            const name = inputs.name.value.trim();
-            const email = inputs.email.value.trim();
-            const phone = inputs.phone.value.replace(/\D/g, '');
-            const password = inputs.password.value;
-            const confirmPassword = inputs.confirmPassword.value;
-
-            if (name.length < 3) {
-                showError('nameError', true);
-                isValid = false;
-            } else {
-                showError('nameError', false);
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                showError('emailError', true);
-                isValid = false;
-            } else {
-                showError('emailError', false);
-            }
-
-            const phonePattern = /^\d{10,}$/;
-            if (!phonePattern.test(phone)) {
-                showError('phoneError', true);
-                isValid = false;
-            } else {
-                showError('phoneError', false);
-            }
-
-            if (password.length < 8) {
-                showError('passwordError', true);
-                isValid = false;
-            } else {
-                showError('passwordError', false);
-            }
-
-            if (password !== confirmPassword || confirmPassword.length < 1) {
-                showError('confirmPasswordError', true);
-                isValid = false;
-            } else {
-                showError('confirmPasswordError', false);
-            }
-
-            return isValid;
-        }
-
-        function showError(id, show) {
-            const error = document.getElementById(id);
-            if (error) {
-                error.classList.toggle('show', show);
-            }
-        }
-    </script>
 </body>
 </html>
