@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zuri Agency — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50:'#fffbeb',100:'#fef3c7',200:'#fde68a',300:'#fcd34d',400:'#fbbf24',500:'#f59e0b',600:'#d97706',700:'#b45309',800:'#92400e',900:'#78350f',dark:'#b45309',light:'#fbbf24' },
+            surface: { DEFAULT:'#0a0a0a',alt:'#111111',card:'#161616' },
+            accent: { blue:'#3b82f6' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#0a0a0a; color:#f5f5f4; overflow-x:hidden; }
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:3px; }
+    ::-webkit-scrollbar-thumb:hover { background:rgba(255,255,255,0.2); }
+    .text-gradient { background:linear-gradient(135deg,#f59e0b,#fbbf24,#f59e0b); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .glass { background:rgba(23,23,23,0.6); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.06); }
+    .glass-light { background:rgba(23,23,23,0.4); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04); }
+    .glow-brand { box-shadow:0 0 40px rgba(245,158,11,0.08),0 0 80px rgba(245,158,11,0.04); }
+    .glow-brand-strong { box-shadow:0 0 30px rgba(245,158,11,0.2),0 0 60px rgba(245,158,11,0.1); }
+    .stat-card { position:relative; overflow:hidden; }
+    .stat-card::before { content:''; position:absolute; top:-50%; right:-50%; width:100%; height:100%; background:radial-gradient(circle,rgba(245,158,11,0.04) 0%,transparent 70%); pointer-events:none; }
+    .sidebar-link { transition:all 200ms ease; }
+    .sidebar-link:hover, .sidebar-link.active { background:rgba(245,158,11,0.08); color:#f59e0b; }
+    .sidebar-link.active { border-right:2px solid #f59e0b; }
+    .tx-row { transition:all 150ms ease; }
+    .tx-row:hover { background:rgba(255,255,255,0.02); }
+    .pulse-dot { animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite; }
+    @keyframes ping { 75%,100%{ transform:scale(2); opacity:0; } }
+    @keyframes fadeInUp { from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:translateY(0); } }
+    .animate-in { animation:fadeInUp 0.5s ease forwards; opacity:0; }
+    .delay-1 { animation-delay:0.1s; }
+    .delay-2 { animation-delay:0.2s; }
+    .delay-3 { animation-delay:0.3s; }
+    .delay-4 { animation-delay:0.4s; }
+    .delay-5 { animation-delay:0.5s; }
+    .delay-6 { animation-delay:0.6s; }
+    .progress-bar { transition:width 1s ease-in-out; }
+    .notification-badge { animation:fadeInUp 0.3s ease; }
+    .toast { transform:translateX(120%); transition:transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .toast.show { transform:translateX(0); }
+    .chart-container { position:relative; }
+    .mobile-overlay { opacity:0; pointer-events:none; transition:opacity 0.3s ease; }
+    .mobile-overlay.active { opacity:1; pointer-events:auto; }
+    @media(max-width:1023px) {
+      .sidebar { transform:translateX(-100%); transition:transform 0.3s ease; }
+      .sidebar.open { transform:translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Mobile Overlay -->
+  <div id="mobileOverlay" class="mobile-overlay fixed inset-0 bg-black/60 z-40 lg:hidden" onclick="toggleSidebar()"></div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="fixed top-4 right-4 z-[100] flex flex-col gap-2"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar fixed top-0 left-0 z-50 w-64 h-full glass border-r border-white/5 flex flex-col lg:translate-x-0">
+    <!-- Logo -->
+    <div class="h-16 flex items-center gap-3 px-5 border-b border-white/5 shrink-0">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center">
+        <span class="text-white font-black text-sm">Z</span>
+      </div>
+      <span class="font-bold text-lg tracking-tight">Zuri<span class="text-brand-400">Agency</span></span>
+      <button onclick="toggleSidebar()" class="ml-auto lg:hidden text-stone-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Nav Links -->
+    <nav class="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-stone-500 px-3 mb-2">Main</p>
+      <a href="#" class="sidebar-link active flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+      </a>
+      <a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400">
+        <i data-lucide="wallet" class="w-4 h-4"></i> Wallet
+      </a>
+      <a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400">
+        <i data-lucide="users" class="w-4 h-4"></i> Referrals
+        <span class="ml-auto text-[10px] font-bold bg-brand-500/20 text-brand-400 px-1.5 py-0.5 rounded-full">12</span>
+      </a>
+      <a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400">
+        <i data-lucide="arrow-up-right" class="w-4 h-4"></i> Withdrawals
+      </a>
+
+      <p class="text-[10px] font-bold uppercase tracking-widest text-stone-500 px-3 mb-2 mt-6">Account</p>
+      <a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400">
+        <i data-lucide="user" class="w-4 h-4"></i> Profile
+      </a>
+      <a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400">
+        <i data-lucide="settings" class="w-4 h-4"></i> Settings
+      </a>
+      <a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400">
+        <i data-lucide="shield" class="w-4 h-4"></i> Security
+      </a>
+      <a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400">
+        <i data-lucide="message-circle" class="w-4 h-4"></i> Support
+      </a>
+
+      <p class="text-[10px] font-bold uppercase tracking-widest text-stone-500 px-3 mb-2 mt-6">Resources</p>
+      <a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400">
+        <i data-lucide="book-open" class="w-4 h-4"></i> How It Works
+      </a>
+      <a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400">
+        <i data-lucide="gift" class="w-4 h-4"></i> Rewards
+      </a>
+    </nav>
+
+    <!-- Bottom CTA -->
+    <div class="p-3 shrink-0">
+      <div class="glass rounded-xl p-4 glow-brand">
+        <div class="flex items-center gap-2 mb-2">
+          <i data-lucide="rocket" class="w-4 h-4 text-brand-400"></i>
+          <span class="text-xs font-bold text-brand-400">Upgrade Plan</span>
+        </div>
+        <p class="text-[11px] text-stone-400 mb-3 leading-relaxed">Unlock higher referral commissions and exclusive bonuses.</p>
+        <button class="w-full bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-white text-xs font-bold py-2 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+          Upgrade Now
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="lg:ml-64 min-h-screen flex flex-col">
+    <!-- Top Bar -->
+    <header class="sticky top-0 z-30 h-16 glass border-b border-white/5 flex items-center justify-between px-4 md:px-6">
+      <div class="flex items-center gap-3">
+        <button onclick="toggleSidebar()" class="lg:hidden text-stone-400 hover:text-white p-1">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+        <div class="hidden sm:flex items-center gap-2 glass-light rounded-lg px-3 py-2 w-64">
+          <i data-lucide="search" class="w-4 h-4 text-stone-500"></i>
+          <input type="text" placeholder="Search anything..." class="bg-transparent text-sm text-stone-300 placeholder-stone-500 outline-none w-full">
+        </div>
+      </div>
+      <div class="flex items-center gap-2 md:gap-3">
+        <!-- Referral Link Button -->
+        <button onclick="copyReferralLink()" class="hidden md:inline-flex items-center gap-2 text-xs font-semibold text-brand-400 hover:text-brand-300 glass-light rounded-lg px-3 py-2 transition-colors">
+          <i data-lucide="link" class="w-3.5 h-3.5"></i>
+          <span>Copy Ref Link</span>
+        </button>
+
+        <!-- Notifications -->
+        <div class="relative">
+          <button onclick="toggleNotifications()" class="relative p-2 rounded-lg text-stone-400 hover:text-white hover:bg-white/5 transition-colors">
+            <i data-lucide="bell" class="w-5 h-5"></i>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-500 rounded-full">
+              <span class="absolute inset-0 bg-brand-500 rounded-full pulse-dot"></span>
+            </span>
+          </button>
+          <!-- Notification Dropdown -->
+          <div id="notifDropdown" class="hidden absolute right-0 top-full mt-2 w-80 glass rounded-xl shadow-2xl shadow-black/40 border border-white/5 overflow-hidden">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-white/5">
+              <span class="text-sm font-bold">Notifications</span>
+              <button onclick="markAllRead()" class="text-[10px] font-semibold text-brand-400 hover:text-brand-300 transition-colors">Mark all read</button>
+            </div>
+            <div class="max-h-72 overflow-y-auto" id="notifList">
+              <div class="notif-item flex gap-3 px-4 py-3 bg-brand-500/5 border-l-2 border-brand-500 hover:bg-white/[0.02] transition-colors cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-green-500/15 flex items-center justify-center shrink-0">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i>
+                </div>
+                <div class="min-w-0">
+                  <p class="text-xs font-semibold text-stone-200">Withdrawal Approved</p>
+                  <p class="text-[11px] text-stone-400 mt-0.5">KES 3,500 sent to your M-Pesa (0712***456)</p>
+                  <p class="text-[10px] text-stone-500 mt-1">2 min ago</p>
+                </div>
+              </div>
+              <div class="notif-item flex gap-3 px-4 py-3 bg-brand-500/5 border-l-2 border-brand-500 hover:bg-white/[0.02] transition-colors cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-brand-500/15 flex items-center justify-center shrink-0">
+                  <i data-lucide="user-plus" class="w-4 h-4 text-brand-400"></i>
+                </div>
+                <div class="min-w-0">
+                  <p class="text-xs font-semibold text-stone-200">New Referral!</p>
+                  <p class="text-[11px] text-stone-400 mt-0.5">Faith N. joined using your link. You earned KES 350!</p>
+                  <p class="text-[10px] text-stone-500 mt-1">18 min ago</p>
+                </div>
+              </div>
+              <div class="notif-item flex gap-3 px-4 py-3 hover:bg-white/[0.02] transition-colors cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-blue-500/15 flex items-center justify-center shrink-0">
+                  <i data-lucide="trending-up" class="w-4 h-4 text-blue-400"></i>
+                </div>
+                <div class="min-w-0">
+                  <p class="text-xs font-semibold text-stone-300">Upline Bonus</p>
+                  <p class="text-[11px] text-stone-400 mt-0.5">KES 150 from Kevin M.'s referral activity.</p>
+                  <p class="text-[10px] text-stone-500 mt-1">3 hours ago</p>
+                </div>
+              </div>
+              <div class="notif-item flex gap-3 px-4 py-3 hover:bg-white/[0.02] transition-colors cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-purple-500/15 flex items-center justify-center shrink-0">
+                  <i data-lucide="star" class="w-4 h-4 text-purple-400"></i>
+                </div>
+                <div class="min-w-0">
+                  <p class="text-xs font-semibold text-stone-300">Achievement Unlocked</p>
+                  <p class="text-[11px] text-stone-400 mt-0.5">You've reached 10 referrals! Gold status unlocked.</p>
+                  <p class="text-[10px] text-stone-500 mt-1">Yesterday</p>
+                </div>
+              </div>
+            </div>
+            <div class="px-4 py-2.5 border-t border-white/5 text-center">
+              <a href="#" class="text-xs font-semibold text-brand-400 hover:text-brand-300 transition-colors">View All Notifications</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Avatar -->
+        <div class="flex items-center gap-2.5 ml-1 pl-3 border-l border-white/5">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white text-xs font-bold">JM</div>
+          <div class="hidden md:block">
+            <p class="text-sm font-semibold leading-none">James M.</p>
+            <p class="text-[10px] text-stone-500 mt-0.5">Gold Member</p>
+          </div>
+          <i data-lucide="chevron-down" class="hidden md:block w-3.5 h-3.5 text-stone-500"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="flex-1 p-4 md:p-6 space-y-6">
+      <!-- Welcome Banner -->
+      <div class="animate-in glass rounded-2xl p-5 md:p-6 glow-brand relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-80 h-80 bg-brand-500/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 class="text-xl md:text-2xl font-bold mb-1">Welcome back, James <span class="inline-block animate-bounce">👋</span></h1>
+            <p class="text-stone-400 text-sm max-w-lg">Your earnings are up <span class="text-green-400 font-semibold">+23.5%</span> this month. Keep sharing your referral link to grow your income.</p>
+          </div>
+          <div class="flex items-center gap-3 shrink-0">
+            <button onclick="copyReferralLink()" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.3)] hover:scale-[1.03]">
+              <i data-lucide="share-2" class="w-4 h-4"></i>
+              Share Link
+            </button>
+            <button onclick="showWithdrawModal()" class="inline-flex items-center gap-2 glass-light hover:bg-white/10 text-stone-200 text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 border border-white/5">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              Withdraw
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        <!-- Balance -->
+        <div class="animate-in delay-1 stat-card glass rounded-xl p-4 md:p-5 hover:border-brand-500/20 transition-all duration-300 group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center group-hover:bg-brand-500/20 transition-colors">
+              <i data-lucide="wallet" class="w-5 h-5 text-brand-400"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-green-400 bg-green-500/10 px-2 py-0.5 rounded-full">+12.3%</span>
+          </div>
+          <p class="text-stone-500 text-xs font-medium mb-1">Available Balance</p>
+          <p class="text-2xl md:text-3xl font-extrabold tracking-tight">KES <span id="balanceCount">14,850</span></p>
+        </div>
+
+        <!-- Total Earned -->
+        <div class="animate-in delay-2 stat-card glass rounded-xl p-4 md:p-5 hover:border-brand-500/20 transition-all duration-300 group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
+              <i data-lucide="trending-up" class="w-5 h-5 text-green-400"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-green-400 bg-green-500/10 px-2 py-0.5 rounded-full">+23.5%</span>
+          </div>
+          <p class="text-stone-500 text-xs font-medium mb-1">Total Earned</p>
+          <p class="text-2xl md:text-3xl font-extrabold tracking-tight">KES <span id="earnedCount">47,200</span></p>
+        </div>
+
+        <!-- Referrals -->
+        <div class="animate-in delay-3 stat-card glass rounded-xl p-4 md:p-5 hover:border-brand-500/20 transition-all duration-300 group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+              <i data-lucide="users" class="w-5 h-5 text-blue-400"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full">+3 new</span>
+          </div>
+          <p class="text-stone-500 text-xs font-medium mb-1">Total Referrals</p>
+          <p class="text-2xl md:text-3xl font-extrabold tracking-tight"><span id="refCount">38</span></p>
+        </div>
+
+        <!-- Withdrawals -->
+        <div class="animate-in delay-4 stat-card glass rounded-xl p-4 md:p-5 hover:border-brand-500/20 transition-all duration-300 group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+              <i data-lucide="download" class="w-5 h-5 text-purple-400"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 bg-white/5 px-2 py-0.5 rounded-full">8 total</span>
+          </div>
+          <p class="text-stone-500 text-xs font-medium mb-1">Total Withdrawn</p>
+          <p class="text-2xl md:text-3xl font-extrabold tracking-tight">KES <span id="withdrawnCount">32,350</span></p>
+        </div>
+      </div>
+
+      <!-- Chart + Referral Breakdown -->
+      <div class="grid lg:grid-cols-3 gap-4 md:gap-6">
+        <!-- Earnings Chart -->
+        <div class="animate-in delay-3 lg:col-span-2 glass rounded-xl p-5 md:p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
+            <div>
+              <h2 class="text-base font-bold">Earnings Overview</h2>
+              <p class="text-stone-500 text-xs mt-0.5">Your earnings breakdown over time</p>
+            </div>
+            <div class="flex items-center gap-1 glass-light rounded-lg p-0.5">
+              <button onclick="setChartPeriod('week',this)" class="chart-period-btn text-[11px] font-semibold px-3 py-1.5 rounded-md transition-all bg-brand-500/15 text-brand-400">Week</button>
+              <button onclick="setChartPeriod('month',this)" class="chart-period-btn text-[11px] font-semibold px-3 py-1.5 rounded-md transition-all text-stone-400 hover:text-stone-200">Month</button>
+              <button onclick="setChartPeriod('year',this)" class="chart-period-btn text-[11px] font-semibold px-3 py-1.5 rounded-md transition-all text-stone-400 hover:text-stone-200">Year</button>
+            </div>
+          </div>
+          <div class="chart-container h-64 md:h-72">
+            <canvas id="earningsChart"></canvas>
+          </div>
+          <div class="flex items-center gap-6 mt-4 pt-4 border-t border-white/5">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+              <span class="text-[11px] text-stone-400">Direct Referrals (KES 350)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+              <span class="text-[11px] text-stone-400">Upline Bonus (KES 150)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Referral Breakdown -->
+        <div class="animate-in delay-4 glass rounded-xl p-5 md:p-6">
+          <h2 class="text-base font-bold mb-1">Referral Performance</h2>
+          <p class="text-stone-500 text-xs mb-5">This month's breakdown</p>
+
+          <!-- Donut Chart -->
+          <div class="chart-container h-40 mb-5 flex items-center justify-center">
+            <canvas id="donutChart"></canvas>
+          </div>
+
+          <!-- Breakdown Items -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+                <span class="text-xs text-stone-300">Direct Earnings</span>
+              </div>
+              <span class="text-xs font-bold">KES 8,400</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                <span class="text-xs text-stone-300">Upline Bonus</span>
+              </div>
+              <span class="text-xs font-bold">KES 3,450</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                <span class="text-xs text-stone-300">Performance Bonus</span>
+              </div>
+              <span class="text-xs font-bold">KES 3,000</span>
+            </div>
+            <div class="border-t border-white/5 pt-3 mt-3 flex items-center justify-between">
+              <span class="text-xs font-bold text-stone-200">Total This Month</span>
+              <span class="text-sm font-extrabold text-gradient">KES 14,850</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transactions + Activity -->
+      <div class="grid lg:grid-cols-5 gap-4 md:gap-6">
+        <!-- Recent Transactions -->
+        <div class="animate-in delay-4 lg:col-span-3 glass rounded-xl overflow-hidden">
+          <div class="flex items-center justify-between px-5 md:px-6 py-4 border-b border-white/5">
+            <div>
+              <h2 class="text-base font-bold">Recent Transactions</h2>
+              <p class="text-stone-500 text-xs mt-0.5">Your latest activity</p>
+            </div>
+            <a href="#" class="text-[11px] font-semibold text-brand-400 hover:text-brand-300 transition-colors">View All</a>
+          </div>
+          <div class="divide-y divide-white/5">
+            <!-- Transaction Row 1 -->
+            <div class="tx-row flex items-center gap-3 md:gap-4 px-5 md:px-6 py-3.5">
+              <div class="w-9 h-9 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-down-left" class="w-4 h-4 text-green-400"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold truncate">Referral Bonus — Faith N.</p>
+                <p class="text-[11px] text-stone-500">Direct referral commission</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-bold text-green-400">+KES 350</p>
+                <p class="text-[10px] text-stone-500">2 min ago</p>
+              </div>
+            </div>
+            <!-- Transaction Row 2 -->
+            <div class="tx-row flex items-center gap-3 md:gap-4 px-5 md:px-6 py-3.5">
+              <div class="w-9 h-9 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-up-right" class="w-4 h-4 text-red-400"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold truncate">Withdrawal — M-Pesa</p>
+                <p class="text-[11px] text-stone-500">To 0712***456</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-bold text-red-400">-KES 3,500</p>
+                <p class="text-[10px] text-stone-500">15 min ago</p>
+              </div>
+            </div>
+            <!-- Transaction Row 3 -->
+            <div class="tx-row flex items-center gap-3 md:gap-4 px-5 md:px-6 py-3.5">
+              <div class="w-9 h-9 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-down-left" class="w-4 h-4 text-blue-400"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold truncate">Upline Bonus — Kevin M.</p>
+                <p class="text-[11px] text-stone-500">Passive income from downline</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-bold text-blue-400">+KES 150</p>
+                <p class="text-[10px] text-stone-500">3 hrs ago</p>
+              </div>
+            </div>
+            <!-- Transaction Row 4 -->
+            <div class="tx-row flex items-center gap-3 md:gap-4 px-5 md:px-6 py-3.5">
+              <div class="w-9 h-9 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-down-left" class="w-4 h-4 text-green-400"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold truncate">Referral Bonus — Samuel K.</p>
+                <p class="text-[11px] text-stone-500">Direct referral commission</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-bold text-green-400">+KES 350</p>
+                <p class="text-[10px] text-stone-500">Yesterday</p>
+              </div>
+            </div>
+            <!-- Transaction Row 5 -->
+            <div class="tx-row flex items-center gap-3 md:gap-4 px-5 md:px-6 py-3.5">
+              <div class="w-9 h-9 rounded-xl bg-purple-500/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-down-left" class="w-4 h-4 text-purple-400"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold truncate">Performance Bonus — Gold Tier</p>
+                <p class="text-[11px] text-stone-500">10 referrals milestone reward</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-bold text-purple-400">+KES 3,000</p>
+                <p class="text-[10px] text-stone-500">Yesterday</p>
+              </div>
+            </div>
+            <!-- Transaction Row 6 -->
+            <div class="tx-row flex items-center gap-3 md:gap-4 px-5 md:px-6 py-3.5">
+              <div class="w-9 h-9 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-down-left" class="w-4 h-4 text-green-400"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold truncate">Referral Bonus — Amina J.</p>
+                <p class="text-[11px] text-stone-500">Direct referral commission</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-bold text-green-400">+KES 350</p>
+                <p class="text-[10px] text-stone-500">2 days ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Timeline + Quick Stats -->
+        <div class="animate-in delay-5 lg:col-span-2 space-y-4 md:space-y-6">
+          <!-- Level Progress -->
+          <div class="glass rounded-xl p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-bold">Level Progress</h3>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded-full">Gold</span>
+            </div>
+            <div class="flex items-end gap-2 mb-2">
+              <span class="text-3xl font-extrabold">38</span>
+              <span class="text-stone-500 text-xs mb-1">/ 50 referrals to Platinum</span>
+            </div>
+            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+              <div class="progress-bar h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full" style="width:76%"></div>
+            </div>
+            <p class="text-[11px] text-stone-500 mt-2">12 more referrals to unlock <span class="text-brand-400 font-semibold">Platinum benefits</span> — KES 500 per referral + 2x upline bonus</p>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="glass rounded-xl p-5">
+            <h3 class="text-sm font-bold mb-4">Quick Stats</h3>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-white/[0.02] rounded-lg p-3 text-center">
+                <p class="text-lg font-extrabold text-brand-400">KES 350</p>
+                <p class="text-[10px] text-stone-500 mt-0.5">Per Referral</p>
+              </div>
+              <div class="bg-white/[0.02] rounded-lg p-3 text-center">
+                <p class="text-lg font-extrabold text-blue-400">KES 150</p>
+                <p class="text-[10px] text-stone-500 mt-0.5">Upline Bonus</p>
+              </div>
+              <div class="bg-white/[0.02] rounded-lg p-3 text-center">
+                <p class="text-lg font-extrabold text-green-400">24hrs</p>
+                <p class="text-[10px] text-stone-500 mt-0.5">Payout Speed</p>
+              </div>
+              <div class="bg-white/[0.02] rounded-lg p-3 text-center">
+                <p class="text-lg font-extrabold text-purple-400">98%</p>
+                <p class="text-[10px] text-stone-500 mt-0.5">Success Rate</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Referrals -->
+          <div class="glass rounded-xl p-5">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-bold">Recent Referrals</h3>
+              <a href="#" class="text-[11px] font-semibold text-brand-400 hover:text-brand-300 transition-colors">See All</a>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white text-[10px] font-bold">FN</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold truncate">Faith N.</p>
+                  <p class="text-[10px] text-stone-500">Joined 18 min ago</p>
+                </div>
+                <span class="text-[10px] font-bold text-green-400 bg-green-500/10 px-2 py-0.5 rounded-full">Active</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-amber-500 flex items-center justify-center text-white text-[10px] font-bold">SK</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold truncate">Samuel K.</p>
+                  <p class="text-[10px] text-stone-500">Joined yesterday</p>
+                </div>
+                <span class="text-[10px] font-bold text-green-400 bg-green-500/10 px-2 py-0.5 rounded-full">Active</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white text-[10px] font-bold">AJ</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold truncate">Amina J.</p>
+                  <p class="text-[10px] text-stone-500">Joined 2 days ago</p>
+                </div>
+                <span class="text-[10px] font-bold text-green-400 bg-green-500/10 px-2 py-0.5 rounded-full">Active</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white text-[10px] font-bold">DO</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold truncate">Dennis O.</p>
+                  <p class="text-[10px] text-stone-500">Joined 3 days ago</p>
+                </div>
+                <span class="text-[10px] font-bold text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded-full">Pending</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Grid: Earning Calculator + Leaderboard + Tips -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <!-- Earnings Calculator -->
+        <div class="animate-in delay-5 glass rounded-xl p-5 md:p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <i data-lucide="calculator" class="w-4 h-4 text-brand-400"></i>
+            <h2 class="text-base font-bold">Earnings Calculator</h2>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label class="text-xs font-semibold text-stone-400 block mb-1.5">Referrals Per Month</label>
+              <input type="range" id="calcReferrals" min="1" max="50" value="10" oninput="updateCalculator()" class="w-full h-1.5 bg-white/5 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-500 [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(245,158,11,0.4)]">
+              <div class="flex justify-between mt-1">
+                <span class="text-[10px] text-stone-500">1</span>
+                <span class="text-xs font-bold text-brand-400" id="calcRefVal">10</span>
+                <span class="text-[10px] text-stone-500">50</span>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-stone-400 block mb-1.5">Team Referrals (Passive)</label>
+              <input type="range" id="calcTeam" min="0" max="100" value="25" oninput="updateCalculator()" class="w-full h-1.5 bg-white/5 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(59,130,246,0.4)]">
+              <div class="flex justify-between mt-1">
+                <span class="text-[10px] text-stone-500">0</span>
+                <span class="text-xs font-bold text-blue-400" id="calcTeamVal">25</span>
+                <span class="text-[10px] text-stone-500">100</span>
+              </div>
+            </div>
+            <div class="bg-white/[0.02] rounded-xl p-4 border border-white/5">
+              <p class="text-xs text-stone-500 mb-1">Estimated Monthly Earnings</p>
+              <p class="text-2xl font-extrabold text-gradient" id="calcResult">KES 7,250</p>
+              <p class="text-[10px] text-stone-500 mt-1">≈ KES <span id="calcDaily">242</span>/day</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="animate-in delay-5 glass rounded-xl p-5 md:p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <i data-lucide="trophy" class="w-4 h-4 text-brand-400"></i>
+            <h2 class="text-base font-bold">Top Referrers</h2>
+            <span class="ml-auto text-[10px] font-bold text-stone-500 bg-white/5 px-2 py-0.5 rounded-full">This Month</span>
+          </div>
+          <div class="space-y-2.5">
+            <div class="flex items-center gap-3 p-2.5 rounded-lg bg-brand-500/5 border border-brand-500/10">
+              <span class="text-sm font-extrabold text-brand-400 w-5 text-center">1</span>
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center text-white text-[10px] font-bold">PK</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-xs font-semibold truncate">Peter K.</p>
+                <p class="text-[10px] text-stone-500">47 referrals</p>
+              </div>
+              <span class="text-xs font-extrabold text-brand-400">KES 16,450</span>
+            </div>
+            <div class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white/[0.02] transition-colors">
+              <span class="text-sm font-extrabold text-stone-400 w-5 text-center">2</span>
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-stone-300 to-stone-400 flex items-center justify-center text-white text-[10px] font-bold">MO</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-xs font-semibold truncate">Mary O.</p>
+                <p class="text-[10px] text-stone-500">42 referrals</p>
+              </div>
+              <span class="text-xs font-bold text-stone-300">KES 14,700</span>
+            </div>
+            <div class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white/[0.02] transition-colors">
+              <span class="text-sm font-extrabold text-stone-500 w-5 text-center">3</span>
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-600 to-amber-700 flex items-center justify-center text-white text-[10px] font-bold">JN</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-xs font-semibold truncate">John N.</p>
+                <p class="text-[10px] text-stone-500">39 referrals</p>
+              </div>
+              <span class="text-xs font-bold text-stone-300">KES 13,650</span>
+            </div>
+            <div class="flex items-center gap-3 p-2.5 rounded-lg bg-brand-500/5 border border-brand-500/10">
+              <span class="text-sm font-extrabold text-brand-400 w-5 text-center">8</span>
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white text-[10px] font-bold">JM</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-xs font-semibold truncate">You (James M.)</p>
+                <p class="text-[10px] text-stone-500">12 referrals</p>
+              </div>
+              <span class="text-xs font-extrabold text-brand-400">KES 4,200</span>
+            </div>
+            <div class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white/[0.02] transition-colors">
+              <span class="text-sm font-extrabold text-stone-500 w-5 text-center">9</span>
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-teal-500 flex items-center justify-center text-white text-[10px] font-bold">LW</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-xs font-semibold truncate">Lucy W.</p>
+                <p class="text-[10px] text-stone-500">11 referrals</p>
+              </div>
+              <span class="text-xs font-bold text-stone-400">KES 3,850</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pro Tips -->
+        <div class="animate-in delay-6 glass rounded-xl p-5 md:p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <i data-lucide="lightbulb" class="w-4 h-4 text-brand-400"></i>
+            <h2 class="text-base font-bold">Growth Tips</h2>
+          </div>
+          <div class="space-y-3">
+            <div class="group flex gap-3 p-3 rounded-lg bg-white/[0.02] hover:bg-white/[0.04] transition-colors cursor-pointer">
+              <div class="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center shrink-0 group-hover:bg-brand-500/20 transition-colors">
+                <i data-lucide="share-2" class="w-4 h-4 text-brand-400"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold mb-0.5">Share on WhatsApp Status</p>
+                <p class="text-[11px] text-stone-500 leading-relaxed">Post your referral link with a personal success story. These convert 3x better.</p>
+              </div>
+            </div>
+            <div class="group flex gap-3 p-3 rounded-lg bg-white/[0.02] hover:bg-white/[0.04] transition-colors cursor-pointer">
+              <div class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0 group-hover:bg-green-500/20 transition-colors">
+                <i data-lucide="users" class="w-4 h-4 text-green-400"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold mb-0.5">Help Your Team Grow</p>
+                <p class="text-[11px] text-stone-500 leading-relaxed">When your referrals bring people, you earn KES 150 passively. Guide them!</p>
+              </div>
+            </div>
+            <div class="group flex gap-3 p-3 rounded-lg bg-white/[0.02] hover:bg-white/[0.04] transition-colors cursor-pointer">
+              <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 group-hover:bg-blue-500/20 transition-colors">
+                <i data-lucide="target" class="w-4 h-4 text-blue-400"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold mb-0.5">Aim for Platinum</p>
+                <p class="text-[11px] text-stone-500 leading-relaxed">At 50 referrals, you unlock KES 500 per referral + 2x upline bonuses.</p>
+              </div>
+            </div>
+            <div class="group flex gap-3 p-3 rounded-lg bg-white/[0.02] hover:bg-white/[0.04] transition-colors cursor-pointer">
+              <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center shrink-0 group-hover:bg-purple-500/20 transition-colors">
+                <i data-lucide="clock" class="w-4 h-4 text-purple-400"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold mb-0.5">Be Consistent</p>
+                <p class="text-[11px] text-stone-500 leading-relaxed">Share daily. Even 1 referral/week = KES 1,400/month extra.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="text-center py-6 border-t border-white/5">
+        <p class="text-[11px] text-stone-600">© 2025 ZuriAgency. All rights reserved. Built with ❤️ in Kenya.</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Withdraw Modal -->
+  <div id="withdrawModal" class="fixed inset-0 z-[90] hidden items-center justify-center p-4" style="display:none;">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="hideWithdrawModal()"></div>
+    <div class="relative glass rounded-2xl w-full max-w-md p-6 glow-brand-strong" style="animation:fadeInUp 0.3s ease forwards;">
+      <button onclick="hideWithdrawModal()" class="absolute top-4 right-4 text-stone-400 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-xl bg-brand-500/15 flex items-center justify-center">
+          <i data-lucide="download" class="w-5 h-5 text-brand-400"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold">Withdraw Funds</h3>
+          <p class="text-xs text-stone-500">Available: KES 14,850</p>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="text-xs font-semibold text-stone-400 block mb-1.5">Amount (KES)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-bold text-stone-500">KES</span>
+            <input type="number" id="withdrawAmount" placeholder="0" min="100" max="14850" class="w-full bg-white/[0.03] border border-white/10 rounded-xl pl-12 pr-4 py-3 text-sm font-semibold text-white placeholder-stone-600 outline-none focus:border-brand-500/50 transition-colors">
+          </div>
+          <div class="flex gap-2 mt-2">
+            <button onclick="setWithdrawAmount(1000)" class="text-[10px] font-bold text-brand-400 bg-brand-500/10 hover:bg-brand-500/20 px-2.5 py-1 rounded-md transition-colors">KES 1,000</button>
+            <button onclick="setWithdrawAmount(5000)" class="text-[10px] font-bold text-brand-400 bg-brand-500/10 hover:bg-brand-500/20 px-2.5 py-1 rounded-md transition-colors">KES 5,000</button>
+            <button onclick="setWithdrawAmount(10000)" class="text-[10px] font-bold text-brand-400 bg-brand-500/10 hover:bg-brand-500/20 px-2.5 py-1 rounded-md transition-colors">KES 10,000</button>
+            <button onclick="setWithdrawAmount(14850)" class="text-[10px] font-bold text-brand-400 bg-brand-500/10 hover:bg-brand-500/20 px-2.5 py-1 rounded-md transition-colors">All</button>
+          </div>
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-stone-400 block mb-1.5">M-Pesa Phone Number</label>
+          <input type="tel" id="withdrawPhone" placeholder="0712 345 678" class="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm font-semibold text-white placeholder-stone-600 outline-none focus:border-brand-500/50 transition-colors">
+        </div>
+        <button onclick="processWithdraw()" class="w-full bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-white font-bold text-sm py-3 rounded-xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.3)]">
+          Withdraw to M-Pesa
+        </button>
+        <p class="text-[10px] text-stone-500 text-center">Funds arrive within 24 hours. Min. withdrawal: KES 100</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Sidebar toggle
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('mobileOverlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('active');
+    }
+
+    // Notifications dropdown
+    function toggleNotifications() {
+      const dd = document.getElementById('notifDropdown');
+      dd.classList.toggle('hidden');
+    }
+    function markAllRead() {
+      document.querySelectorAll('.notif-item').forEach(el => {
+        el.classList.remove('bg-brand-500/5');
+        el.style.borderLeftColor = 'transparent';
+      });
+      document.querySelector('.pulse-dot')?.remove();
+      showToast('All notifications marked as read', 'info');
+    }
+
+    // Close dropdowns on outside click
+    document.addEventListener('click', (e) => {
+      const notifBtn = e.target.closest('[onclick*="toggleNotifications"]');
+      if (!notifBtn) {
+        document.getElementById('notifDropdown')?.classList.add('hidden');
+      }
+    });
+
+    // Toast notifications
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      const colors = {
+        success: 'border-green-500/30 bg-green-500/10',
+        error: 'border-red-500/30 bg-red-500/10',
+        info: 'border-blue-500/30 bg-blue-500/10'
+      };
+      const icons = {
+        success: 'check-circle',
+        error: 'alert-circle',
+        info: 'info'
+      };
+      const iconColors = {
+        success: 'text-green-400',
+        error: 'text-red-400',
+        info: 'text-blue-400'
+      };
+      toast.className = `toast glass rounded-xl px-4 py-3 flex items-center gap-3 border ${colors[type]} min-w-[280px]`;
+      toast.innerHTML = `
+        <i data-lucide="${icons[type]}" class="w-4 h-4 ${iconColors[type]} shrink-0"></i>
+        <span class="text-xs font-medium text-stone-200">${message}</span>
+      `;
+      container.appendChild(toast);
+      lucide.createIcons({ nodes: [toast] });
+      requestAnimationFrame(() => toast.classList.add('show'));
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+      }, 3500);
+    }
+
+    // Copy referral link
+    function copyReferralLink() {
+      const link = 'https://zuriagency.co.ke/ref/JamesM2025';
+      navigator.clipboard?.writeText(link).then(() => {
+        showToast('Referral link copied to clipboard!', 'success');
+      }).catch(() => {
+        showToast('Referral link copied!', 'success');
+      });
+    }
+
+    // Withdraw modal
+    function showWithdrawModal() {
+      const modal = document.getElementById('withdrawModal');
+      modal.style.display = 'flex';
+      lucide.createIcons({ nodes: [modal] });
+    }
+    function hideWithdrawModal() {
+      document.getElementById('withdrawModal').style.display = 'none';
+    }
+    function setWithdrawAmount(val) {
+      document.getElementById('withdrawAmount').value = val;
+    }
+    function processWithdraw() {
+      const amount = parseInt(document.getElementById('withdrawAmount').value);
+      const phone = document.getElementById('withdrawPhone').value.trim();
+      if (!amount || amount < 100) {
+        showToast('Minimum withdrawal is KES 100', 'error');
+        return;
+      }
+      if (amount > 14850) {
+        showToast('Insufficient balance', 'error');
+        return;
+      }
+      if (!phone || phone.length < 10) {
+        showToast('Please enter a valid M-Pesa number', 'error');
+        return;
+      }
+      hideWithdrawModal();
+      showToast(`Withdrawal of KES ${amount.toLocaleString()} initiated!`, 'success');
+      document.getElementById('withdrawAmount').value = '';
+      document.getElementById('withdrawPhone').value = '';
+    }
+
+    // Earnings Calculator
+    function updateCalculator() {
+      const refs = parseInt(document.getElementById('calcReferrals').value);
+      const team = parseInt(document.getElementById('calcTeam').value);
+      document.getElementById('calcRefVal').textContent = refs;
+      document.getElementById('calcTeamVal').textContent = team;
+      const total = (refs * 350) + (team * 150);
+      document.getElementById('calcResult').textContent = `KES ${total.toLocaleString()}`;
+      document.getElementById('calcDaily').textContent = Math.round(total / 30);
+    }
+
+    // Charts
+    const chartData = {
+      week: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        direct: [700, 350, 1050, 0, 700, 350, 350],
+        upline: [0, 150, 150, 300, 0, 150, 0]
+      },
+      month: {
+        labels: ['Wk 1', 'Wk 2', 'Wk 3', 'Wk 4'],
+        direct: [2800, 3500, 2100, 4200],
+        upline: [600, 900, 450, 1500]
+      },
+      year: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        direct: [3500, 4200, 5600, 4900, 6300, 7700, 8400, 9100, 10500, 11200, 12600, 14700],
+        upline: [900, 1200, 1800, 1500, 2100, 2700, 3000, 3300, 3900, 4200, 4800, 5700]
+      }
+    };
+
+    let earningsChart;
+    function initChart(period = 'week') {
+      const ctx = document.getElementById('earningsChart').getContext('2d');
+      const data = chartData[period];
+
+      if (earningsChart) earningsChart.destroy();
+
+      earningsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Direct Referrals',
+              data: data.direct,
+              backgroundColor: 'rgba(245, 158, 11, 0.7)',
+              hoverBackgroundColor: 'rgba(245, 158, 11, 0.9)',
+              borderRadius: 6,
+              borderSkipped: false,
+              barPercentage: 0.6,
+              categoryPercentage: 0.7,
+            },
+            {
+              label: 'Upline Bonus',
+              data: data.upline,
+              backgroundColor: 'rgba(59, 130, 246, 0.5)',
+              hoverBackgroundColor: 'rgba(59, 130, 246, 0.8)',
+              borderRadius: 6,
+              borderSkipped: false,
+              barPercentage: 0.6,
+              categoryPercentage: 0.7,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(23,23,23,0.95)',
+              borderColor: 'rgba(255,255,255,0.1)',
+              borderWidth: 1,
+              titleFont: { family: 'Inter', size: 12, weight: '600' },
+              bodyFont: { family: 'Inter', size: 11 },
+              padding: 12,
+              cornerRadius: 10,
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: KES ${ctx.parsed.y.toLocaleString()}`
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: '#57534e', font: { family: 'Inter', size: 11 } },
+              border: { display: false }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.03)', drawBorder: false },
+              ticks: {
+                color: '#57534e',
+                font: { family: 'Inter', size: 11 },
+                callback: (v) => v >= 1000 ? (v/1000)+'k' : v
+              },
+              border: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    function setChartPeriod(period, btn) {
+      document.querySelectorAll('.chart-period-btn').forEach(b => {
+        b.classList.remove('bg-brand-500/15', 'text-brand-400');
+        b.classList.add('text-stone-400');
+      });
+      btn.classList.add('bg-brand-500/15', 'text-brand-400');
+      btn.classList.remove('text-stone-400');
+      initChart(period);
+    }
+
+    // Donut Chart
+    function initDonutChart() {
+      const ctx = document.getElementById('donutChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Direct', 'Upline', 'Bonus'],
+          datasets: [{
+            data: [8400, 3450, 3000],
+            backgroundColor: [
+              'rgba(245, 158, 11, 0.8)',
+              'rgba(59, 130, 246, 0.7)',
+              'rgba(168, 85, 247, 0.7)'
+            ],
+            hoverBackgroundColor: [
+              'rgba(245, 158, 11, 1)',
+              'rgba(59, 130, 246, 1)',
+              'rgba(168, 85, 247, 1)'
+            ],
+            borderWidth: 0,
+            spacing: 3,
+            borderRadius: 4,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '72%',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(23,23,23,0.95)',
+              borderColor: 'rgba(255,255,255,0.1)',
+              borderWidth: 1,
+              titleFont: { family: 'Inter', size: 12, weight: '600' },
+              bodyFont: { family: 'Inter', size: 11 },
+              padding: 10,
+              cornerRadius: 8,
+              callbacks: {
+                label: (ctx) => `KES ${ctx.parsed.toLocaleString()}`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Animated counters
+    function animateCounter(id, target, duration = 1500) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const start = 0;
+      const startTime = performance.now();
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(start + (target - start) * eased);
+        el.textContent = current.toLocaleString();
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    // Progress bar animation
+    function animateProgressBars() {
+      document.querySelectorAll('.progress-bar').forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => { bar.style.width = width; }, 300);
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      initChart('week');
+      initDonutChart();
+      animateCounter('balanceCount', 14850);
+      animateCounter('earnedCount', 47200);
+      animateCounter('refCount', 38);
+      animateCounter('withdrawnCount', 32350);
+      animateProgressBars();
+      updateCalculator();
+    });
+  </script>
+</body>
+</html>
