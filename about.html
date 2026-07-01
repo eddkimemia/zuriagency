@@ -1,867 +1,166 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us — Zuri Agency</title>
-  <meta name="description" content="Learn about Zuri Agency — Kenya's fastest-growing digital wealth community. Our mission, values, and the team behind the platform.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-          colors: {
-            brand: { 50:'#fffbeb',100:'#fef3c7',200:'#fde68a',300:'#fcd34d',400:'#fbbf24',500:'#f59e0b',600:'#d97706',700:'#b45309',800:'#92400e',900:'#78350f',dark:'#b45309',light:'#fbbf24' },
-            surface: { DEFAULT:'#0a0a0a',alt:'#111111',card:'#161616' },
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Inter',sans-serif; background:#0a0a0a; color:#f5f5f4; overflow-x:hidden; }
-    ::-webkit-scrollbar { width:6px; }
-    ::-webkit-scrollbar-track { background:transparent; }
-    ::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:3px; }
-    ::-webkit-scrollbar-thumb:hover { background:rgba(255,255,255,0.2); }
-    .text-gradient { background:linear-gradient(135deg,#f59e0b,#fbbf24,#f59e0b); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .glass { background:rgba(23,23,23,0.6); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.06); }
-    .glass-light { background:rgba(23,23,23,0.4); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04); }
-    .glow-brand { box-shadow:0 0 40px rgba(245,158,11,0.08),0 0 80px rgba(245,158,11,0.04); }
-    @keyframes fadeInUp { from{ opacity:0; transform:translateY(24px); } to{ opacity:1; transform:translateY(0); } }
-    @keyframes fadeInLeft { from{ opacity:0; transform:translateX(-24px); } to{ opacity:1; transform:translateX(0); } }
-    @keyframes fadeInRight { from{ opacity:0; transform:translateX(24px); } to{ opacity:1; transform:translateX(0); } }
-    @keyframes scaleIn { from{ opacity:0; transform:scale(0.9); } to{ opacity:1; transform:scale(1); } }
-    @keyframes float { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-12px); } }
-    @keyframes pulse-slow { 0%,100%{ opacity:0.4; } 50%{ opacity:0.8; } }
-    .anim-up { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
-    .anim-up.visible { opacity:1; transform:translateY(0); }
-    .anim-left { opacity:0; transform:translateX(-24px); transition:opacity 0.7s ease, transform 0.7s ease; }
-    .anim-left.visible { opacity:1; transform:translateX(0); }
-    .anim-right { opacity:0; transform:translateX(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
-    .anim-right.visible { opacity:1; transform:translateX(0); }
-    .anim-scale { opacity:0; transform:scale(0.9); transition:opacity 0.6s ease, transform 0.6s ease; }
-    .anim-scale.visible { opacity:1; transform:scale(1); }
-    .delay-1 { transition-delay:0.1s; }
-    .delay-2 { transition-delay:0.2s; }
-    .delay-3 { transition-delay:0.3s; }
-    .delay-4 { transition-delay:0.4s; }
-    .delay-5 { transition-delay:0.5s; }
-    .delay-6 { transition-delay:0.6s; }
-    .float { animation:float 6s ease-in-out infinite; }
-    .pulse-slow { animation:pulse-slow 4s ease-in-out infinite; }
-    .timeline-line { position:relative; }
-    .timeline-line::before { content:''; position:absolute; left:19px; top:40px; bottom:0; width:2px; background:linear-gradient(to bottom,rgba(245,158,11,0.3),rgba(245,158,11,0.05)); }
-    .team-card:hover .team-img { transform:scale(1.05); }
-    .team-card:hover .team-overlay { opacity:1; }
-    .value-card { position:relative; overflow:hidden; }
-    .value-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#f59e0b,transparent); transform:scaleX(0); transition:transform 0.5s ease; }
-    .value-card:hover::after { transform:scaleX(1); }
-    .stat-number { font-variant-numeric:tabular-nums; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — Zuri Agency</title>
+    <meta name="description" content="Learn about Zuri Agency — Kenya's fastest-growing digital wealth community. Our mission, values, and the team behind the platform.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-
-  <!-- ═══════════════ HEADER ═══════════════ -->
-  <header class="sticky top-0 z-50 w-full glass shadow-lg shadow-black/10">
-    <div class="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-20 px-4 md:px-6">
-      <a href="index.html" class="shrink-0 flex items-center gap-2">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center">
-          <span class="text-white font-black text-sm">Z</span>
-        </div>
-        <span class="font-bold text-lg tracking-tight hidden sm:inline">Zuri<span class="text-brand-400">Agency</span></span>
-      </a>
-      <nav class="hidden md:flex items-center gap-1">
-        <a href="index.html" class="text-stone-400 hover:text-white text-sm font-medium tracking-wide px-3 py-2 rounded-lg hover:bg-white/5 transition-all duration-200">Home</a>
-        <a href="about.html" class="text-brand-400 text-sm font-medium tracking-wide px-3 py-2 rounded-lg bg-brand-500/10 transition-all duration-200">About</a>
-        <a href="#" class="text-stone-400 hover:text-white text-sm font-medium tracking-wide px-3 py-2 rounded-lg hover:bg-white/5 transition-all duration-200">How It Works</a>
-        <a href="#" class="text-stone-400 hover:text-white text-sm font-medium tracking-wide px-3 py-2 rounded-lg hover:bg-white/5 transition-all duration-200">Success Stories</a>
-        <a href="#" class="text-stone-400 hover:text-white text-sm font-medium tracking-wide px-3 py-2 rounded-lg hover:bg-white/5 transition-all duration-200">FAQ</a>
-        <div class="w-px h-5 bg-white/10 mx-2"></div>
-        <a href="dashboard.html" class="text-stone-400 hover:text-white text-sm font-medium tracking-wide px-3 py-2 rounded-lg hover:bg-white/5 transition-all duration-200">Dashboard</a>
-        <a href="#" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(245,158,11,0.3)]">
-          Get Started <span class="text-base leading-none">→</span>
-        </a>
-      </nav>
-      <button id="mobileMenuBtn" class="md:hidden text-stone-400 hover:text-white p-1.5 rounded-lg hover:bg-white/5 transition-colors">
-        <i data-lucide="menu" class="w-5 h-5"></i>
-      </button>
-    </div>
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="hidden md:hidden border-t border-white/5 pb-4 px-4 pt-2 space-y-1">
-      <a href="index.html" class="block text-stone-400 hover:text-white text-sm font-medium px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">Home</a>
-      <a href="about.html" class="block text-brand-400 text-sm font-medium px-3 py-2.5 rounded-lg bg-brand-500/10">About</a>
-      <a href="#" class="block text-stone-400 hover:text-white text-sm font-medium px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">How It Works</a>
-      <a href="#" class="block text-stone-400 hover:text-white text-sm font-medium px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">Success Stories</a>
-      <a href="#" class="block text-stone-400 hover:text-white text-sm font-medium px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">FAQ</a>
-      <a href="dashboard.html" class="block text-stone-400 hover:text-white text-sm font-medium px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">Dashboard</a>
-      <a href="#" class="block text-center bg-gradient-to-r from-brand-500 to-brand-600 text-white font-bold text-sm px-5 py-2.5 rounded-xl mt-2">Get Started →</a>
-    </div>
-  </header>
-
-  <main>
-
-    <!-- ═══════════════ HERO ═══════════════ -->
-    <section class="relative min-h-[75vh] flex items-center overflow-hidden">
-      <!-- Background Effects -->
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4"></div>
-        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/4"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-brand-500/3 via-transparent to-blue-500/3 rounded-full blur-[150px]"></div>
-      </div>
-      <div class="absolute inset-0 opacity-[0.02] pointer-events-none" style="background-image:linear-gradient(rgba(255,255,255,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.3) 1px,transparent 1px);background-size:60px 60px;"></div>
-
-      <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10 py-16 md:py-24">
-        <div class="max-w-3xl">
-          <div class="anim-up inline-flex items-center gap-2 glass-light rounded-full px-4 py-1.5 mb-6">
-            <span class="w-2 h-2 rounded-full bg-brand-500 pulse-slow"></span>
-            <span class="text-brand-400 text-xs font-semibold tracking-wide uppercase">Our Story</span>
-          </div>
-          <h1 class="anim-up delay-1 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] mb-6">
-            Building Wealth<br>
-            <span class="text-gradient">Together</span> in Kenya
-          </h1>
-          <p class="anim-up delay-2 text-stone-400 text-base md:text-lg max-w-xl leading-relaxed mb-8">
-            ZuriAgency was born from a simple belief: every Kenyan deserves access to a system that rewards effort, community, and smart financial action — not just privilege.
-          </p>
-          <div class="anim-up delay-3 flex flex-wrap gap-4">
-            <a href="#" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-white font-bold text-sm px-6 py-3 rounded-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_50px_rgba(245,158,11,0.25)] group">
-              Join the Movement
-              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+    <header class="sticky top-0 z-50 w-full glass shadow-lg shadow-black/10">
+        <div class="container flex items-center justify-between h-16 md:h-20">
+            <a href="index.html" class="shrink-0 flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center">
+                    <span class="text-white font-black text-sm">Z</span>
+                </div>
+                <span class="font-bold text-lg tracking-tight hidden sm:inline">Zuri<span class="text-brand">Agency</span></span>
             </a>
-            <a href="#mission" class="inline-flex items-center gap-2 text-stone-400 hover:text-white font-semibold text-sm px-5 py-3 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all duration-300">
-              Our Mission
-            </a>
-          </div>
+            <nav class="hidden md:flex items-center gap-1">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+                <a href="success.html" class="nav-link">Success Stories</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <div class="w-px h-5 bg-border-subtle mx-2"></div>
+                <a href="get-started.html" class="btn-primary py-2 px-5 text-sm">Get Started →</a>
+                <button aria-label="Toggle theme" class="ml-2 p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface-alt transition-all">
+                    <i data-lucide="moon" class="w-4 h-4" id="moonIcon"></i>
+                    <i data-lucide="sun" class="w-4 h-4 hidden" id="sunIcon"></i>
+                </button>
+            </nav>
+            <button id="mobileMenuBtn" class="md:hidden text-text-secondary hover:text-text-primary p-1.5 rounded-lg hover:bg-surface-alt transition-colors">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
         </div>
-      </div>
-      <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-surface to-transparent pointer-events-none"></div>
-    </section>
-
-    <!-- ═══════════════ STATS BAR ═══════════════ -->
-    <section class="relative py-6 border-y border-white/5 bg-surface-alt/50">
-      <div class="max-w-7xl mx-auto px-4 md:px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          <div class="anim-up text-center">
-            <p class="text-2xl md:text-3xl font-extrabold text-gradient stat-number" data-count="2500">0</p>
-            <p class="text-xs text-stone-500 mt-1 font-medium">Active Members</p>
-          </div>
-          <div class="anim-up delay-1 text-center">
-            <p class="text-2xl md:text-3xl font-extrabold text-gradient stat-number" data-count="4800000" data-prefix="KES " data-format="short">0</p>
-            <p class="text-xs text-stone-500 mt-1 font-medium">Total Paid Out</p>
-          </div>
-          <div class="anim-up delay-2 text-center">
-            <p class="text-2xl md:text-3xl font-extrabold text-gradient stat-number" data-count="47" data-suffix=" Counties">0</p>
-            <p class="text-xs text-stone-500 mt-1 font-medium">Coverage Across KE</p>
-          </div>
-          <div class="anim-up delay-3 text-center">
-            <p class="text-2xl md:text-3xl font-extrabold text-gradient stat-number" data-count="98" data-suffix="%">0</p>
-            <p class="text-xs text-stone-500 mt-1 font-medium">Member Satisfaction</p>
-          </div>
+        <div id="mobileMenu" class="mobile-menu md:hidden">
+            <div class="px-4 py-6 space-y-2">
+                <a href="index.html" class="block nav-link">Home</a>
+                <a href="about.html" class="block nav-link active">About</a>
+                <a href="how-it-works.html" class="block nav-link">How It Works</a>
+                <a href="get-started.html" class="btn-primary w-full mt-4">Get Started</a>
+            </div>
         </div>
-      </div>
-    </section>
+    </header>
 
-    <!-- ═══════════════ MISSION / VISION / VALUES ═══════════════ -->
-    <section id="mission" class="relative py-16 md:py-24">
-      <div class="max-w-7xl mx-auto px-4 md:px-6">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start mb-20">
-          <!-- Mission -->
-          <div class="anim-left">
-            <span class="inline-flex items-center gap-2 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4">
-              <span class="w-8 h-px bg-brand-500/40"></span>Our Mission
-            </span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-5">
-              Democratizing <span class="text-gradient">Wealth Creation</span>
-            </h2>
-            <p class="text-stone-400 text-base leading-relaxed mb-4">
-              We exist to bridge the gap between hardworking Kenyans and real financial opportunity. Traditional systems — banks, saccos, chamas — have gatekeepers. We don't.
-            </p>
-            <p class="text-stone-400 text-base leading-relaxed mb-6">
-              ZuriAgency provides a transparent, community-driven platform where anyone with KES 1,000 and determination can start building sustainable income through referrals and passive upline earnings.
-            </p>
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center">
-                <i data-lucide="target" class="w-6 h-6 text-brand-400"></i>
-              </div>
-              <div>
-                <p class="text-sm font-bold">Financial Freedom for All</p>
-                <p class="text-xs text-stone-500">No minimum education. No connections needed.</p>
-              </div>
+    <main>
+        <section class="relative min-h-[75vh] flex items-center overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand/5 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4"></div>
+                <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/4"></div>
             </div>
-          </div>
-
-          <!-- Vision -->
-          <div class="anim-right">
-            <span class="inline-flex items-center gap-2 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4">
-              <span class="w-8 h-px bg-brand-500/40"></span>Our Vision
-            </span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-5">
-              A Million Kenyans <span class="text-gradient">Earning Smarter</span>
-            </h2>
-            <p class="text-stone-400 text-base leading-relaxed mb-4">
-              By 2027, we aim to have one million active members across East Africa, each earning meaningful supplemental income through our platform.
-            </p>
-            <p class="text-stone-400 text-base leading-relaxed mb-6">
-              We envision a future where "side income" isn't a luxury — it's a standard. Where every M-Pesa notification brings a smile, not anxiety.
-            </p>
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
-                <i data-lucide="eye" class="w-6 h-6 text-blue-400"></i>
-              </div>
-              <div>
-                <p class="text-sm font-bold">1M Members by 2027</p>
-                <p class="text-xs text-stone-500">Expanding across Kenya, Uganda, Tanzania.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Core Values -->
-        <div class="text-center mb-12 anim-up">
-          <span class="inline-flex items-center gap-2 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4">
-            <span class="w-8 h-px bg-brand-500/40"></span>What We Stand For<span class="w-8 h-px bg-brand-500/40"></span>
-          </span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold">Our Core <span class="text-gradient">Values</span></h2>
-        </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="anim-up delay-1 value-card glass rounded-xl p-6 hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1 group">
-            <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-4 group-hover:bg-brand-500/20 transition-colors">
-              <i data-lucide="shield-check" class="w-6 h-6 text-brand-400"></i>
-            </div>
-            <h3 class="text-base font-bold mb-2">Transparency</h3>
-            <p class="text-stone-400 text-sm leading-relaxed">Every shilling is tracked. No hidden fees, no fine print. What you see is exactly what you get.</p>
-          </div>
-          <div class="anim-up delay-2 value-card glass rounded-xl p-6 hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1 group">
-            <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-colors">
-              <i data-lucide="users" class="w-6 h-6 text-green-400"></i>
-            </div>
-            <h3 class="text-base font-bold mb-2">Community First</h3>
-            <p class="text-stone-400 text-sm leading-relaxed">We succeed when you succeed. Our support team, mentors, and members are always here to help.</p>
-          </div>
-          <div class="anim-up delay-3 value-card glass rounded-xl p-6 hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1 group">
-            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
-              <i data-lucide="zap" class="w-6 h-6 text-blue-400"></i>
-            </div>
-            <h3 class="text-base font-bold mb-2">Speed & Efficiency</h3>
-            <p class="text-stone-400 text-sm leading-relaxed">24-hour M-Pesa payouts. Instant confirmations. We respect your time and your money.</p>
-          </div>
-          <div class="anim-up delay-4 value-card glass rounded-xl p-6 hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1 group">
-            <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
-              <i data-lucide="heart" class="w-6 h-6 text-purple-400"></i>
-            </div>
-            <h3 class="text-base font-bold mb-2">Integrity</h3>
-            <p class="text-stone-400 text-sm leading-relaxed">We do things right, even when no one is watching. Your trust is the foundation of everything we build.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ OUR STORY / TIMELINE ═══════════════ -->
-    <section class="relative py-16 md:py-24 bg-surface-alt">
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brand-500/5 rounded-full blur-[120px] pointer-events-none"></div>
-      <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
-        <div class="text-center mb-14 anim-up">
-          <span class="inline-flex items-center gap-2 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4">
-            <span class="w-8 h-px bg-brand-500/40"></span>Our Journey<span class="w-8 h-px bg-brand-500/40"></span>
-          </span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold">The ZuriAgency <span class="text-gradient">Story</span></h2>
-          <p class="text-stone-400 text-base mt-3 max-w-2xl mx-auto">From a WhatsApp group to a platform serving thousands. Here's how it happened.</p>
-        </div>
-
-        <div class="max-w-2xl mx-auto timeline-line">
-          <!-- Timeline Item 1 -->
-          <div class="anim-left delay-1 flex gap-5 mb-10 relative">
-            <div class="shrink-0 w-10 h-10 rounded-full bg-brand-500/15 border-2 border-brand-500/30 flex items-center justify-center z-10">
-              <i data-lucide="message-circle" class="w-4 h-4 text-brand-400"></i>
-            </div>
-            <div class="glass rounded-xl p-5 flex-1">
-              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-400">January 2023</span>
-              <h3 class="text-base font-bold mt-1 mb-2">It Started With a WhatsApp Group</h3>
-              <p class="text-stone-400 text-sm leading-relaxed">Our founder, frustrated with stagnant bank interest rates, created a small WhatsApp group with 15 friends. The idea was simple: pool resources, share opportunities, and earn together. Within 2 weeks, everyone had made a profit.</p>
-            </div>
-          </div>
-
-          <!-- Timeline Item 2 -->
-          <div class="anim-left delay-2 flex gap-5 mb-10 relative">
-            <div class="shrink-0 w-10 h-10 rounded-full bg-green-500/15 border-2 border-green-500/30 flex items-center justify-center z-10">
-              <i data-lucide="rocket" class="w-4 h-4 text-green-400"></i>
-            </div>
-            <div class="glass rounded-xl p-5 flex-1">
-              <span class="text-[10px] font-bold uppercase tracking-widest text-green-400">March 2023</span>
-              <h3 class="text-base font-bold mt-1 mb-2">The First 100 Members</h3>
-              <p class="text-stone-400 text-sm leading-relaxed">Word spread fast. Friends told friends. The group hit 100 members, and the manual tracking became impossible. That's when we knew we needed a proper platform — not just a group chat.</p>
-            </div>
-          </div>
-
-          <!-- Timeline Item 3 -->
-          <div class="anim-left delay-3 flex gap-5 mb-10 relative">
-            <div class="shrink-0 w-10 h-10 rounded-full bg-blue-500/15 border-2 border-blue-500/30 flex items-center justify-center z-10">
-              <i data-lucide="code" class="w-4 h-4 text-blue-400"></i>
-            </div>
-            <div class="glass rounded-xl p-5 flex-1">
-              <span class="text-[10px] font-bold uppercase tracking-widest text-blue-400">June 2023</span>
-              <h3 class="text-base font-bold mt-1 mb-2">Platform Launch</h3>
-              <p class="text-stone-400 text-sm leading-relaxed">After 3 months of development, ZuriAgency.com went live. Automated tracking, instant M-Pesa payouts, referral links — everything was now seamless. Membership doubled in the first month.</p>
-            </div>
-          </div>
-
-          <!-- Timeline Item 4 -->
-          <div class="anim-left delay-4 flex gap-5 mb-10 relative">
-            <div class="shrink-0 w-10 h-10 rounded-full bg-purple-500/15 border-2 border-purple-500/30 flex items-center justify-center z-10">
-              <i data-lucide="trophy" class="w-4 h-4 text-purple-400"></i>
-            </div>
-            <div class="glass rounded-xl p-5 flex-1">
-              <span class="text-[10px] font-bold uppercase tracking-widest text-purple-400">November 2023</span>
-              <h3 class="text-base font-bold mt-1 mb-2">KES 1 Million Milestone</h3>
-              <p class="text-stone-400 text-sm leading-relaxed">We celebrated our first KES 1 million in total payouts. 500+ active members. Stories pouring in of school fees paid, businesses started, and lives changed. This was our proof of concept — and our motivation to go bigger.</p>
-            </div>
-          </div>
-
-          <!-- Timeline Item 5 -->
-          <div class="anim-left delay-5 flex gap-5 mb-10 relative">
-            <div class="shrink-0 w-10 h-10 rounded-full bg-brand-500/15 border-2 border-brand-500/30 flex items-center justify-center z-10">
-              <i data-lucide="globe" class="w-4 h-4 text-brand-400"></i>
-            </div>
-            <div class="glass rounded-xl p-5 flex-1">
-              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-400">March 2024</span>
-              <h3 class="text-base font-bold mt-1 mb-2">All 47 Counties</h3>
-              <p class="text-stone-400 text-sm leading-relaxed">ZuriAgency members now span every county in Kenya. From Mombasa to Lodwar, from Kisumu to Garissa. We built a truly national community — powered entirely by word of mouth.</p>
-            </div>
-          </div>
-
-          <!-- Timeline Item 6 -->
-          <div class="anim-left delay-6 flex gap-5 relative">
-            <div class="shrink-0 w-10 h-10 rounded-full bg-brand-500 border-2 border-brand-400 flex items-center justify-center z-10 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
-              <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
-            </div>
-            <div class="glass rounded-xl p-5 flex-1 glow-brand border-brand-500/20">
-              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-400">2025 — Now</span>
-              <h3 class="text-base font-bold mt-1 mb-2">2,500+ Members. KES 4.8M+ Paid. Growing Fast.</h3>
-              <p class="text-stone-400 text-sm leading-relaxed">We're just getting started. New features, tier upgrades, East African expansion, and a mobile app are all in the pipeline. The best time to join was yesterday. The second best time is now.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ TEAM ═══════════════ -->
-    <section class="relative py-16 md:py-24">
-      <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-500/5 rounded-full blur-[100px] pointer-events-none"></div>
-      <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
-        <div class="text-center mb-14 anim-up">
-          <span class="inline-flex items-center gap-2 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4">
-            <span class="w-8 h-px bg-brand-500/40"></span>The People Behind Zuri<span class="w-8 h-px bg-brand-500/40"></span>
-          </span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold">Meet the <span class="text-gradient">Team</span></h2>
-          <p class="text-stone-400 text-base mt-3 max-w-2xl mx-auto">Young, hungry, and deeply committed to changing how Kenyans think about earning.</p>
-        </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <!-- Team Member 1 -->
-          <div class="anim-scale delay-1 team-card group">
-            <div class="glass rounded-2xl overflow-hidden hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1">
-              <div class="relative h-56 overflow-hidden">
-                <img src="https://picsum.photos/seed/zuri-ceo-kevin/400/450.jpg" alt="Kevin Omondi" class="team-img w-full h-full object-cover transition-transform duration-700">
-                <div class="team-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-500 flex items-end p-4">
-                  <div class="flex gap-2">
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-500/50 flex items-center justify-center transition-colors">
-                      <i data-lucide="twitter" class="w-3.5 h-3.5 text-white"></i>
-                    </a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-500/50 flex items-center justify-center transition-colors">
-                      <i data-lucide="linkedin" class="w-3.5 h-3.5 text-white"></i>
-                    </a>
-                  </div>
+            <div class="container relative z-10 py-16 md:py-24">
+                <div class="max-w-3xl">
+                    <div class="anim-up inline-flex items-center gap-2 glass-light rounded-full px-4 py-1.5 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-brand pulse-slow"></span>
+                        <span class="text-brand text-xs font-semibold tracking-wide uppercase">Our Story</span>
+                    </div>
+                    <h1 class="anim-up delay-1 text-4xl md:text-6xl font-extrabold mb-6">Building Wealth <span class="text-gradient">Together</span> in Kenya</h1>
+                    <p class="anim-up delay-2 text-text-secondary text-lg max-w-xl leading-relaxed mb-8">ZuriAgency was born from a simple belief: every Kenyan deserves access to a system that rewards effort, community, and smart financial action.</p>
+                    <div class="anim-up delay-3 flex flex-wrap gap-4">
+                        <a href="get-started.html" class="btn-primary">Join the Movement <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
                 </div>
-              </div>
-              <div class="p-4">
-                <h3 class="text-base font-bold">Kevin Omondi</h3>
-                <p class="text-brand-400 text-xs font-semibold">Founder & CEO</p>
-                <p class="text-stone-500 text-xs mt-2 leading-relaxed">Former fintech analyst. Started ZuriAgency after seeing how exclusionary traditional finance was.</p>
-              </div>
             </div>
-          </div>
+        </section>
 
-          <!-- Team Member 2 -->
-          <div class="anim-scale delay-2 team-card group">
-            <div class="glass rounded-2xl overflow-hidden hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1">
-              <div class="relative h-56 overflow-hidden">
-                <img src="https://picsum.photos/seed/zuri-cto-akinyi/400/450.jpg" alt="Akinyi Wanjiru" class="team-img w-full h-full object-cover transition-transform duration-700">
-                <div class="team-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-500 flex items-end p-4">
-                  <div class="flex gap-2">
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-500/50 flex items-center justify-center transition-colors">
-                      <i data-lucide="twitter" class="w-3.5 h-3.5 text-white"></i>
-                    </a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-500/50 flex items-center justify-center transition-colors">
-                      <i data-lucide="github" class="w-3.5 h-3.5 text-white"></i>
-                    </a>
-                  </div>
+        <section class="py-12 border-y border-border-subtle bg-surface-alt">
+            <div class="container grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="anim-up">
+                    <p class="text-3xl font-extrabold text-gradient stat-number" data-count="2500">0</p>
+                    <p class="text-xs text-text-muted mt-1 font-medium uppercase tracking-wider">Active Members</p>
                 </div>
-              </div>
-              <div class="p-4">
-                <h3 class="text-base font-bold">Akinyi Wanjiru</h3>
-                <p class="text-blue-400 text-xs font-semibold">CTO & Co-Founder</p>
-                <p class="text-stone-500 text-xs mt-2 leading-relaxed">Full-stack engineer with 8 years experience. Built the platform from scratch in 90 days.</p>
-              </div>
+                <div class="anim-up delay-1">
+                    <p class="text-3xl font-extrabold text-gradient stat-number" data-count="4800000" data-prefix="KES " data-format="short">0</p>
+                    <p class="text-xs text-text-muted mt-1 font-medium uppercase tracking-wider">Total Paid Out</p>
+                </div>
+                <div class="anim-up delay-2">
+                    <p class="text-3xl font-extrabold text-gradient stat-number" data-count="47" data-suffix=" Counties">0</p>
+                    <p class="text-xs text-text-muted mt-1 font-medium uppercase tracking-wider">Coverage Across KE</p>
+                </div>
+                <div class="anim-up delay-3">
+                    <p class="text-3xl font-extrabold text-gradient stat-number" data-count="98" data-suffix="%">0</p>
+                    <p class="text-xs text-text-muted mt-1 font-medium uppercase tracking-wider">Satisfaction</p>
+                </div>
             </div>
-          </div>
+        </section>
 
-          <!-- Team Member 3 -->
-          <div class="anim-scale delay-3 team-card group">
-            <div class="glass rounded-2xl overflow-hidden hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1">
-              <div class="relative h-56 overflow-hidden">
-                <img src="https://picsum.photos/seed/zuri-head-ops-muthoni/400/450.jpg" alt="Muthoni Njeri" class="team-img w-full h-full object-cover transition-transform duration-700">
-                <div class="team-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-500 flex items-end p-4">
-                  <div class="flex gap-2">
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-500/50 flex items-center justify-center transition-colors">
-                      <i data-lucide="twitter" class="w-3.5 h-3.5 text-white"></i>
-                    </a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-500/50 flex items-center justify-center transition-colors">
-                      <i data-lucide="linkedin" class="w-3.5 h-3.5 text-white"></i>
-                    </a>
-                  </div>
+        <section class="py-16 md:py-24">
+            <div class="container grid lg:grid-cols-2 gap-20">
+                <div class="anim-left">
+                    <span class="inline-flex items-center gap-2 text-brand text-xs font-bold uppercase tracking-widest mb-4"><span class="w-8 h-px bg-brand/40"></span>Our Mission</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Democratizing <span class="text-gradient">Wealth Creation</span></h2>
+                    <p class="text-text-secondary leading-relaxed mb-6">We exist to bridge the gap between hardworking Kenyans and real financial opportunity. ZuriAgency provides a transparent, community-driven platform where anyone with determination can start building sustainable income.</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center text-brand"><i data-lucide="target" class="w-6 h-6"></i></div>
+                        <div>
+                            <p class="font-bold text-sm">Financial Freedom for All</p>
+                            <p class="text-xs text-text-muted">No minimum education. No connections needed.</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="p-4">
-                <h3 class="text-base font-bold">Muthoni Njeri</h3>
-                <p class="text-green-400 text-xs font-semibold">Head of Operations</p>
-                <p class="text-stone-500 text-xs mt-2 leading-relaxed">Ensures every payout is fast, every member is supported, and every process runs smoothly.</p>
-              </div>
+                <div class="anim-right">
+                    <span class="inline-flex items-center gap-2 text-brand text-xs font-bold uppercase tracking-widest mb-4"><span class="w-8 h-px bg-brand/40"></span>Our Vision</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-6">A Million Kenyans <span class="text-gradient">Earning Smarter</span></h2>
+                    <p class="text-text-secondary leading-relaxed mb-6">By 2027, we aim to have one million active members across East Africa, each earning meaningful supplemental income through our platform.</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500"><i data-lucide="eye" class="w-6 h-6"></i></div>
+                        <div>
+                            <p class="font-bold text-sm">1M Members by 2027</p>
+                            <p class="text-xs text-text-muted">Expanding across Kenya, Uganda, Tanzania.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
+    </main>
 
-          <!-- Team Member 4 -->
-          <div class="anim-scale delay-4 team-card group">
-            <div class="glass rounded-2xl overflow-hidden hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1">
-              <div class="relative h-56 overflow-hidden">
-                <img src="https://picsum.photos/seed/zuri-community-abdalla/400/450.jpg" alt="Abdalla Hassan" class="team-img w-full h-full object-cover transition-transform duration-700">
-                <div class="team-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-500 flex items-end p-4">
-                  <div class="flex gap-2">
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-500/50 flex items-center justify-center transition-colors">
-                      <i data-lucide="twitter" class="w-3.5 h-3.5 text-white"></i>
-                    </a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-500/50 flex items-center justify-center transition-colors">
-                      <i data-lucide="linkedin" class="w-3.5 h-3.5 text-white"></i>
-                    </a>
-                  </div>
+    <footer class="bg-[#0F172A] text-white py-16 border-t border-white/5">
+        <div class="container grid md:grid-cols-4 gap-12">
+            <div class="lg:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-brand flex items-center justify-center text-white font-bold">Z</div>
+                    <span class="font-bold text-xl">ZuriAgency</span>
                 </div>
-              </div>
-              <div class="p-4">
-                <h3 class="text-base font-bold">Abdalla Hassan</h3>
-                <p class="text-purple-400 text-xs font-semibold">Community Lead</p>
-                <p class="text-stone-500 text-xs mt-2 leading-relaxed">Manages our 50+ WhatsApp & Telegram groups. The human heart of ZuriAgency.</p>
-              </div>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6">Building financial freedom, one referral at a time.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-slate-400 hover:text-brand"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-brand"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                </div>
             </div>
-          </div>
-        </div>
-
-        <!-- Team Culture Note -->
-        <div class="anim-up mt-12 glass rounded-2xl p-6 md:p-8 max-w-3xl mx-auto text-center glow-brand">
-          <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-brand-500/10 flex items-center justify-center">
-            <i data-lucide="heart-handshake" class="w-7 h-7 text-brand-400"></i>
-          </div>
-          <h3 class="text-lg font-bold mb-2">We're All Members Too</h3>
-          <p class="text-stone-400 text-sm leading-relaxed">Every person on our team is an active ZuriAgency member. We eat our own cooking. We earn through the same system, face the same challenges, and celebrate the same wins as you. That's not a marketing line — it's a fact.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ WHY TRUST US ═══════════════ -->
-    <section class="relative py-16 md:py-24 bg-surface-alt">
-      <div class="max-w-7xl mx-auto px-4 md:px-6">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <!-- Left: Image / Visual -->
-          <div class="anim-left relative">
-            <div class="glass rounded-2xl overflow-hidden glow-brand">
-              <img src="https://picsum.photos/seed/zuri-trust-kenya-team/700/500.jpg" alt="ZuriAgency team working together" class="w-full h-auto object-cover aspect-[7/5]">
+            <div>
+                <h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-slate-200">Quick Links</h4>
+                <ul class="space-y-4 text-slate-400 text-sm">
+                    <li><a href="index.html" class="hover:text-white">Home</a></li>
+                    <li><a href="how-it-works.html" class="hover:text-white">How It Works</a></li>
+                    <li><a href="success.html" class="hover:text-white">Success Stories</a></li>
+                </ul>
             </div>
-            <!-- Floating stat cards -->
-            <div class="absolute -bottom-4 -left-4 glass rounded-xl px-4 py-3 shadow-xl float">
-              <p class="text-brand-400 font-extrabold text-xl leading-none">98%</p>
-              <p class="text-stone-500 text-[11px] mt-0.5">Payout Success Rate</p>
+            <div>
+                <h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-slate-200">Legal</h4>
+                <ul class="space-y-4 text-slate-400 text-sm">
+                    <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                </ul>
             </div>
-            <div class="absolute -top-3 -right-3 glass rounded-xl px-4 py-3 shadow-xl float" style="animation-delay:-3s;">
-              <p class="text-green-400 font-extrabold text-xl leading-none">&lt;24hrs</p>
-              <p class="text-stone-500 text-[11px] mt-0.5">Average Payout Time</p>
+            <div>
+                <h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-slate-200">Secure</h4>
+                <div class="flex items-center gap-2 bg-white/5 rounded-lg px-3 py-2">
+                    <i data-lucide="shield" class="w-4 h-4 text-emerald-400"></i>
+                    <span class="text-xs font-bold text-slate-300">SSL Encrypted</span>
+                </div>
             </div>
-          </div>
-
-          <!-- Right: Trust Points -->
-          <div class="anim-right">
-            <span class="inline-flex items-center gap-2 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4">
-              <span class="w-8 h-px bg-brand-500/40"></span>Trust & Security
-            </span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-6">
-              Why Thousands <span class="text-gradient">Trust Us</span>
-            </h2>
-            <div class="space-y-5">
-              <div class="flex gap-4">
-                <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0">
-                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400"></i>
-                </div>
-                <div>
-                  <h4 class="text-sm font-bold mb-1">No Hidden Fees</h4>
-                  <p class="text-stone-400 text-sm leading-relaxed">You activate once with KES 1,000. That's it. No monthly charges, no surprise deductions, no "admin fees." Every shilling you earn is yours.</p>
-                </div>
-              </div>
-              <div class="flex gap-4">
-                <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
-                  <i data-lucide="lock" class="w-5 h-5 text-blue-400"></i>
-                </div>
-                <div>
-                  <h4 class="text-sm font-bold mb-1">Data Protected</h4>
-                  <p class="text-stone-400 text-sm leading-relaxed">Your phone number, M-Pesa details, and personal data are encrypted and never shared with third parties. Period.</p>
-                </div>
-              </div>
-              <div class="flex gap-4">
-                <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center shrink-0">
-                  <i data-lucide="smartphone" class="w-5 h-5 text-brand-400"></i>
-                </div>
-                <div>
-                  <h4 class="text-sm font-bold mb-1">M-Pesa Integrated</h4>
-                  <p class="text-stone-400 text-sm leading-relaxed">We use Kenya's most trusted payment platform. No weird wallets, no crypto conversions — just straight M-Pesa to your phone.</p>
-                </div>
-              </div>
-              <div class="flex gap-4">
-                <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center shrink-0">
-                  <i data-lucide="headphones" class="w-5 h-5 text-purple-400"></i>
-                </div>
-                <div>
-                  <h4 class="text-sm font-bold mb-1">Real Human Support</h4>
-                  <p class="text-stone-400 text-sm leading-relaxed">No bots. No ticket queues. Message us on WhatsApp or Telegram and get a real response in under 30 minutes, 24/7.</p>
-                </div>
-              </div>
-              <div class="flex gap-4">
-                <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0">
-                  <i data-lucide="shield-alert" class="w-5 h-5 text-red-400"></i>
-                </div>
-                <div>
-                  <h4 class="text-sm font-bold mb-1">Fraud Protection</h4>
-                  <p class="text-stone-400 text-sm leading-relaxed">Our system detects and blocks duplicate accounts, fake referrals, and suspicious activity automatically. Your earnings are protected.</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ SOCIAL IMPACT ═══════════════ -->
-    <section class="relative py-16 md:py-24">
-      <div class="max-w-7xl mx-auto px-4 md:px-6">
-        <div class="text-center mb-14 anim-up">
-          <span class="inline-flex items-center gap-2 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4">
-            <span class="w-8 h-px bg-brand-500/40"></span>Beyond Earnings<span class="w-8 h-px bg-brand-500/40"></span>
-          </span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold">Real <span class="text-gradient">Impact</span> in Real Lives</h2>
-          <p class="text-stone-400 text-base mt-3 max-w-2xl mx-auto">Our members use their earnings for things that matter. Here's what we've seen.</p>
+        <div class="container border-t border-white/5 mt-16 pt-8 text-center text-slate-500 text-xs">
+            © 2026 Zuri Agency. All rights reserved.
         </div>
+    </footer>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <div class="anim-up delay-1 glass rounded-2xl p-6 hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1 group">
-            <div class="text-4xl mb-4">🎓</div>
-            <h3 class="text-base font-bold mb-2">School Fees Paid</h3>
-            <p class="text-stone-400 text-sm leading-relaxed mb-3">Over 340 members have reported using ZuriAgency earnings specifically to pay school fees for their children or themselves.</p>
-            <p class="text-brand-400 text-2xl font-extrabold">340+</p>
-            <p class="text-stone-500 text-xs">families supported</p>
-          </div>
-          <div class="anim-up delay-2 glass rounded-2xl p-6 hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1 group">
-            <div class="text-4xl mb-4">🏠</div>
-            <h3 class="text-base font-bold mb-2">Rent Covered</h3>
-            <p class="text-stone-400 text-sm leading-relaxed mb-3">For many members, ZuriAgency income covers monthly rent entirely, removing one of the biggest sources of financial stress.</p>
-            <p class="text-brand-400 text-2xl font-extrabold">68%</p>
-            <p class="text-stone-500 text-xs">of members report this</p>
-          </div>
-          <div class="anim-up delay-3 glass rounded-2xl p-6 hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1 group">
-            <div class="text-4xl mb-4">💼</div>
-            <h3 class="text-base font-bold mb-2">Businesses Started</h3>
-            <p class="text-stone-400 text-sm leading-relaxed mb-3">From mitumba stalls to online shops, members have used their earnings as startup capital for small businesses.</p>
-            <p class="text-brand-400 text-2xl font-extrabold">120+</p>
-            <p class="text-stone-500 text-xs">businesses launched</p>
-          </div>
-          <div class="anim-up delay-4 glass rounded-2xl p-6 hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1 group">
-            <div class="text-4xl mb-4">🏥</div>
-            <h3 class="text-base font-bold mb-2">Medical Emergencies</h3>
-            <p class="text-stone-400 text-sm leading-relaxed mb-3">When NHIF isn't enough, ZuriAgency earnings have helped members handle medical bills for themselves and family.</p>
-            <p class="text-brand-400 text-2xl font-extrabold">85+</p>
-            <p class="text-stone-500 text-xs">emergencies assisted</p>
-          </div>
-          <div class="anim-up delay-5 glass rounded-2xl p-6 hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1 group">
-            <div class="text-4xl mb-4">📱</div>
-            <h3 class="text-base font-bold mb-2">First Smartphones</h3>
-            <p class="text-stone-400 text-sm leading-relaxed mb-3">Some members earned enough to buy their first smartphone — unlocking even more opportunities for them and their families.</p>
-            <p class="text-brand-400 text-2xl font-extrabold">60+</p>
-            <p class="text-stone-500 text-xs">devices purchased</p>
-          </div>
-          <div class="anim-up delay-6 glass rounded-2xl p-6 hover:border-brand-500/20 transition-all duration-500 hover:-translate-y-1 group">
-            <div class="text-4xl mb-4">🌾</div>
-            <h3 class="text-base font-bold mb-2">Rural Upliftment</h3>
-            <p class="text-stone-400 text-sm leading-relaxed mb-3">40% of our members are outside Nairobi. ZuriAgency brings earning opportunities to areas where jobs are scarce.</p>
-            <p class="text-brand-400 text-2xl font-extrabold">40%</p>
-            <p class="text-stone-500 text-xs">based outside Nairobi</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ TESTIMONIALS STRIP ═══════════════ -->
-    <section class="relative py-16 md:py-20 bg-surface-alt overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 md:px-6">
-        <div class="text-center mb-12 anim-up">
-          <span class="inline-flex items-center gap-2 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4">
-            <span class="w-8 h-px bg-brand-500/40"></span>Member Voices<span class="w-8 h-px bg-brand-500/40"></span>
-          </span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold">What Our Members <span class="text-gradient">Say</span></h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
-          <div class="anim-left glass rounded-2xl p-6 hover:border-brand-500/20 transition-all duration-500">
-            <div class="flex gap-1 mb-4">
-              <svg class="w-4 h-4 text-brand-400 fill-brand-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-              <svg class="w-4 h-4 text-brand-400 fill-brand-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-              <svg class="w-4 h-4 text-brand-400 fill-brand-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-              <svg class="w-4 h-4 text-brand-400 fill-brand-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-              <svg class="w-4 h-4 text-brand-400 fill-brand-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-            </div>
-            <blockquote class="text-stone-300 text-sm leading-relaxed mb-5 italic">"What I love about ZuriAgency is that it's real people helping real people. My upline mentor called me every day for the first week just to make sure I understood the system. That kind of support is rare."</blockquote>
-            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white text-xs font-bold">CW</div>
-              <div>
-                <p class="text-sm font-bold">Charles W.</p>
-                <p class="text-stone-500 text-xs">Nakuru · Member since Feb 2024</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="anim-right glass rounded-2xl p-6 hover:border-brand-500/20 transition-all duration-500">
-            <div class="flex gap-1 mb-4">
-              <svg class="w-4 h-4 text-brand-400 fill-brand-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-              <svg class="w-4 h-4 text-brand-400 fill-brand-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-              <svg class="w-4 h-4 text-brand-400 fill-brand-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-              <svg class="w-4 h-4 text-brand-400 fill-brand-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-              <svg class="w-4 h-4 text-brand-400 fill-brand-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-            </div>
-            <blockquote class="text-stone-300 text-sm leading-relaxed mb-5 italic">"I'm a university student in Kisumu. ZuriAgency pays my rent and part of my fees. My parents were skeptical at first — now my mum wants to join too! The transparency won her over."</blockquote>
-            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 to-violet-500 flex items-center justify-center text-white text-xs font-bold">BA</div>
-              <div>
-                <p class="text-sm font-bold">Brian A.</p>
-                <p class="text-stone-500 text-xs">Kisumu · Member since May 2024</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ CTA ═══════════════ -->
-    <section class="relative py-20 md:py-28">
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-[120px]"></div>
-      </div>
-      <div class="max-w-3xl mx-auto px-4 md:px-6 relative z-10 text-center anim-up">
-        <div class="glass rounded-3xl p-8 md:p-12 glow-brand">
-          <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shadow-lg shadow-brand-500/20">
-            <i data-lucide="rocket" class="w-8 h-8 text-white"></i>
-          </div>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4">Ready to Write <span class="text-gradient">Your Story?</span></h2>
-          <p class="text-stone-400 text-base max-w-xl mx-auto mb-8 leading-relaxed">Every member on this page started exactly where you are right now — reading this, thinking about it. The only difference? They took action.</p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-white font-bold text-sm px-8 py-3.5 rounded-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_50px_rgba(245,158,11,0.3)] group">
-              Join ZuriAgency Today
-              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-            </a>
-            <a href="#" class="inline-flex items-center justify-center gap-2 text-stone-400 hover:text-white font-semibold text-sm px-6 py-3.5 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all duration-300">
-              <i data-lucide="message-circle" class="w-4 h-4"></i>
-              Chat With Us
-            </a>
-          </div>
-          <p class="text-stone-500 text-xs mt-6">Free KES 500 activation credit when you join today · No hidden fees</p>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ═══════════════ FOOTER ═══════════════ -->
-  <footer class="border-t border-white/5 bg-surface-alt">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-16">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-        <!-- Brand -->
-        <div class="sm:col-span-2 lg:col-span-1">
-          <div class="flex items-center gap-2 mb-4">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center">
-              <span class="text-white font-black text-sm">Z</span>
-            </div>
-            <span class="font-bold text-lg tracking-tight">Zuri<span class="text-brand-400">Agency</span></span>
-          </div>
-          <p class="text-stone-500 text-sm leading-relaxed mb-4">Kenya's fastest-growing digital wealth community. Building financial freedom, one referral at a time.</p>
-          <div class="flex gap-2">
-            <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-brand-500/20 flex items-center justify-center transition-colors">
-              <i data-lucide="twitter" class="w-4 h-4 text-stone-400"></i>
-            </a>
-            <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-brand-500/20 flex items-center justify-center transition-colors">
-              <i data-lucide="instagram" class="w-4 h-4 text-stone-400"></i>
-            </a>
-            <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-green-500/20 flex items-center justify-center transition-colors">
-              <i data-lucide="message-circle" class="w-4 h-4 text-stone-400"></i>
-            </a>
-            <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-blue-500/20 flex items-center justify-center transition-colors">
-              <i data-lucide="send" class="w-4 h-4 text-stone-400"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Quick Links -->
-        <div>
-          <h4 class="text-sm font-bold mb-4">Platform</h4>
-          <ul class="space-y-2.5">
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">How It Works</a></li>
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Pricing</a></li>
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Success Stories</a></li>
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">FAQ</a></li>
-            <li><a href="dashboard.html" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Dashboard</a></li>
-          </ul>
-        </div>
-
-        <!-- Company -->
-        <div>
-          <h4 class="text-sm font-bold mb-4">Company</h4>
-          <ul class="space-y-2.5">
-            <li><a href="about.html" class="text-brand-400 text-sm">About Us</a></li>
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Careers</a></li>
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Blog</a></li>
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Press Kit</a></li>
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Contact</a></li>
-          </ul>
-        </div>
-
-        <!-- Legal -->
-        <div>
-          <h4 class="text-sm font-bold mb-4">Legal</h4>
-          <ul class="space-y-2.5">
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Terms of Service</a></li>
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Privacy Policy</a></li>
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Refund Policy</a></li>
-            <li><a href="#" class="text-stone-500 hover:text-stone-200 text-sm transition-colors">Cookie Policy</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="border-t border-white/5 mt-10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p class="text-stone-600 text-xs">© 2025 ZuriAgency. All rights reserved. Built with ❤️ in Nairobi, Kenya.</p>
-        <div class="flex items-center gap-4">
-          <span class="text-stone-600 text-xs">Secured by</span>
-          <div class="flex items-center gap-2 glass-light rounded-lg px-3 py-1.5">
-            <i data-lucide="shield" class="w-3.5 h-3.5 text-green-400"></i>
-            <span class="text-[10px] font-bold text-stone-400">SSL Encrypted</span>
-          </div>
-          <div class="flex items-center gap-2 glass-light rounded-lg px-3 py-1.5">
-            <i data-lucide="smartphone" class="w-3.5 h-3.5 text-green-400"></i>
-            <span class="text-[10px] font-bold text-stone-400">M-Pesa Verified</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // Initialize Lucide icons
-    lucide.createIcons();
-
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (mobileMenuBtn && mobileMenu) {
-      mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-    }
-
-    // ─── Scroll Animations (IntersectionObserver) ────────────
-    const animElements = document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px'
-    });
-
-    animElements.forEach(el => observer.observe(el));
-
-    // ─── Stat Counter Animation ──────────────────────────────
-    function formatNumber(num, format) {
-      if (format === 'short') {
-        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-        if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
-        return num.toString();
-      }
-      return num.toLocaleString();
-    }
-
-    function animateStatCounter(el) {
-      const target = parseInt(el.dataset.count);
-      const prefix = el.dataset.prefix || '';
-      const suffix = el.dataset.suffix || '';
-      const format = el.dataset.format || '';
-      const duration = 2000;
-      const startTime = performance.now();
-
-      function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        // Ease out cubic
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const current = Math.round(target * eased);
-        el.textContent = prefix + formatNumber(current, format) + suffix;
-        if (progress < 1) requestAnimationFrame(update);
-      }
-      requestAnimationFrame(update);
-    }
-
-    // Observe stat counters
-    const statElements = document.querySelectorAll('[data-count]');
-    const statObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateStatCounter(entry.target);
-          statObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    statElements.forEach(el => statObserver.observe(el));
-
-    // ─── Smooth scroll for anchor links ──────────────────────
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        const target = document.querySelector(targetId);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          // Close mobile menu if open
-          if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-            mobileMenu.classList.add('hidden');
-          }
-        }
-      });
-    });
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>

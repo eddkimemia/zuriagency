@@ -1,248 +1,336 @@
-(function(){try{var t=localStorage.getItem('theme');if(t==='light'||(!t&&window.matchMedia('(prefers-color-scheme:light)').matches))document.documentElement.classList.add('light')}catch(e){}})()
-
-const registerForm = document.getElementById('registerForm');
-
-if (registerForm) {
-  const formInputs = {
-    name: document.getElementById('name'),
-    email: document.getElementById('email'),
-    phone: document.getElementById('phone'),
-    password: document.getElementById('password'),
-    confirmPassword: document.getElementById('confirmPassword')
-  };
-
-  registerForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    if (validateRegistrationForm()) {
-      const successMessage = document.getElementById('successMessage');
-      if (successMessage) {
-        successMessage.classList.add('show');
-      }
-      registerForm.reset();
-      setTimeout(() => {
-        if (successMessage) {
-          successMessage.classList.remove('show');
-        }
-      }, 3000);
-    }
-  });
-
-  function validateRegistrationForm() {
-    let isValid = true;
-    const name = formInputs.name?.value.trim() || '';
-    const email = formInputs.email?.value.trim() || '';
-    const phone = formInputs.phone?.value.replace(/\D/g, '') || '';
-    const password = formInputs.password?.value || '';
-    const confirmPassword = formInputs.confirmPassword?.value || '';
-
-    if (name.length < 3) {
-      toggleError('nameError', true);
-      isValid = false;
-    } else {
-      toggleError('nameError', false);
-    }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      toggleError('emailError', true);
-      isValid = false;
-    } else {
-      toggleError('emailError', false);
-    }
-
-    const phonePattern = /^\d{10,}$/;
-    if (!phonePattern.test(phone)) {
-      toggleError('phoneError', true);
-      isValid = false;
-    } else {
-      toggleError('phoneError', false);
-    }
-
-    if (password.length < 8) {
-      toggleError('passwordError', true);
-      isValid = false;
-    } else {
-      toggleError('passwordError', false);
-    }
-
-    if (password !== confirmPassword || confirmPassword.length < 1) {
-      toggleError('confirmPasswordError', true);
-      isValid = false;
-    } else {
-      toggleError('confirmPasswordError', false);
-    }
-
-    return isValid;
-  }
-
-  function toggleError(id, show) {
-    const error = document.getElementById(id);
-    if (error) {
-      error.classList.toggle('show', show);
-    }
-  }
-}
-
-const mobileMenuButton = document.getElementById('mobileMenuButton');
-const mobileMenu = document.getElementById('mobileMenu');
-
-if (mobileMenuButton && mobileMenu) {
-  mobileMenuButton.addEventListener('click', function () {
-    const isOpen = mobileMenu.classList.toggle('hidden');
-    mobileMenuButton.setAttribute('aria-expanded', String(!isOpen));
-  });
-}
-
-window.__reactRouterContext = {"basename":"/","future":{"unstable_optimizeDeps":false,"v8_passThroughRequests":false,"v8_trailingSlashAwareDataRequests":false,"unstable_previewServerPrerendering":false,"v8_middleware":false,"v8_splitRouteModules":false,"v8_viteEnvironmentApi":false},"routeDiscovery":{"mode":"initial"},"ssr":false,"isSpaMode":true,"criticalCss":"\n/* /app/styles/globals.css */\n/*! tailwindcss v4.3.0 | MIT License | https://tailwindcss.com */\n@layer properties;\n@layer theme, base, components, utilities;\n@layer theme {\n  :root, :host {\n    --font-sans: ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\",\n      \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";\n    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\",\n      \"Courier New\", monospace;\n    --color-red-50: oklch(97.1% 0.013 17.38);\n    --color-red-200: oklch(88.5% 0.062 18.334);\n    --color-red-300: oklch(80.8% 0.114 19.571);\n    --color-red-400: oklch(70.4% 0.191 22.216);\n    --color-red-500: oklch(63.7% 0.237 25.331);\n    --color-amber-100: oklch(96.2% 0.059 95.617);\n    --color-amber-400: oklch(82.8% 0.189 84.429);\n    --color-amber-500: oklch(76.9% 0.188 70.08);\n    --color-amber-600: oklch(66.6% 0.179 58.318);\n    --color-green-100: oklch(96.2% 0.044 156.743);\n    --color-green-500: oklch(72.3% 0.219 149.579);\n    --color-green-600: oklch(62.7% 0.194 149.214);\n    --color-emerald-400: oklch(76.5% 0.177 163.223);\n    --color-blue-400: oklch(70.7% 0.165 254.624);\n    --color-blue-500: oklch(62.3% 0.214 259.815);\n    --color-blue-600: oklch(54.6% 0.245 262.881);\n    --color-blue-800: oklch(42.4% 0.199 265.638);\n    --color-purple-100: oklch(94.6% 0.033 307.174);\n    --color-purple-500: oklch(62.7% 0.265 303.9);\n    --color-purple-700: oklch(49.6% 0.265 301.924);\n    --color-slate-300: oklch(86.9% 0.022 252.894);\n    --color-slate-400: oklch(70.4% 0.04 256.788);\n    --color-slate-500: oklch(55.4% 0.046 257.417);\n    --color-slate-600: oklch(44.6% 0.043 257.281);\n    --color-gray-50: oklch(98.5% 0.002 247.839);\n    --color-gray-100: oklch(96.7% 0.003 264.542);\n    --color-gray-200: oklch(92.8% 0.006 264.531);\n    --color-gray-300: oklch(87.2% 0.01 258.338);\n    --color-gray-400: oklch(70.7% 0.022 261.325);\n    --color-gray-600: oklch(44.6% 0.03 256.802);\n    --color-gray-700: oklch(37.3% 0.034 259.733);\n    --color-gray-900: oklch(21% 0.034 264.665);\n    --color-black: #000;\n    --color-white: #fff;\n    --spacing: 0.25rem;\n    --container-md: 28rem;\n    --container-xl: 36rem;\n    --container-2xl: 42rem;\n    --container-3xl: 48rem;\n    --container-4xl: 56rem;\n    --container-5xl: 64rem;\n    --container-7xl: 80rem;\n    --text-xs: 0.75rem;\n    --text-xs--line-height: calc(1 / 0.75);\n    --text-sm: 0.875rem;\n    --text-sm--line-height: calc(1.25 / 0.875);\n    --text-base: 1rem;\n    --text-base--line-height: calc(1.5 / 1);\n    --text-lg: 1.125rem;\n    --text-lg--line-height: calc(1.75 / 1.125);\n    --text-xl: 1.25rem;\n    --text-xl--line-height: calc(1.75 / 1.25);\n    --text-2xl: 1.5rem;\n    --text-2xl--line-height: calc(2 / 1.5);\n    --text-3xl: 1.875rem;\n    --text-3xl--line-height: calc(2.25 / 1.875);\n    --text-4xl: 2.25rem;\n    --text-4xl--line-height: calc(2.5 / 2.25);\n    --text-5xl: 3rem;\n    --text-5xl--line-height: 1;\n    --text-6xl: 3.75rem;\n    --text-6xl--line-height: 1;\n    --text-7xl: 4.5rem;\n    --text-7xl--line-height: 1;\n    --font-weight-normal: 400;\n    --font-weight-medium: 500;\n    --font-weight-semibold: 600;\n    --font-weight-bold: 700;\n    --font-weight-extrabold: 800;\n    --tracking-tight: -0.025em;\n    --tracking-wide: 0.025em;\n    --tracking-wider: 0.05em;\n    --tracking-widest: 0.1em;\n    --leading-tight: 1.25;\n    --leading-relaxed: 1.625;\n    --radius-sm: calc(var(--radius) - 4px);\n    --radius-md: calc(var(--radius) - 2px);\n    --radius-lg: var(--radius);\n    --radius-xl: 0.75rem;\n    --radius-2xl: 1rem;\n    --animate-spin: spin 1s linear infinite;\n    --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;\n    --blur-md: 12px;\n    --blur-3xl: 64px;\n    --default-transition-duration: 150ms;\n    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    --default-font-family: var(--font-sans);\n    --default-mono-font-family: var(--font-mono);\n    --color-brand: #F59E0B;\n    --color-brand-dark: #D97706;\n    --color-brand-light: #FCD34D;\n    --color-accent-blue: #3B82F6;\n    --color-surface: #0F172A;\n    --color-surface-alt: #1E293B;\n    --color-cream: #F8FAFC;\n    --color-charcoal: #F1F5F9;\n    --font-heading: \"Poppins\", sans-serif;\n    --font-body: \"Lato\", sans-serif;\n    --color-border: hsl(var(--border));\n    --color-input: hsl(var(--input));\n    --color-ring: hsl(var(--ring));\n    --color-background: hsl(var(--background));\n    --color-primary: hsl(var(--primary));\n    --color-primary-foreground: hsl(var(--primary-foreground));\n    --color-secondary: hsl(var(--secondary));\n    --color-secondary-foreground: hsl(var(--secondary-foreground));\n    --color-destructive: hsl(var(--destructive));\n    --color-destructive-foreground: hsl(var(--destructive-foreground));\n    --color-accent: hsl(var(--accent));\n    --color-accent-foreground: hsl(var(--accent-foreground));\n    --animate-fade-in-up: fade-in-up 0.7s ease-out forwards;\n  }\n}\n@layer base {\n  *, ::after, ::before, ::backdrop, ::file-selector-button {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n    border: 0 solid;\n  }\n  html, :host {\n    line-height: 1.5;\n    -webkit-text-size-adjust: 100%;\n    tab-size: 4;\n    font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\");\n    font-feature-settings: var(--default-font-feature-settings, normal);\n    font-variation-settings: var(--default-font-variation-settings, normal);\n    -webkit-tap-highlight-color: transparent;\n  }\n  hr {\n    height: 0;\n    color: inherit;\n    border-top-width: 1px;\n  }\n  abbr:where([title]) {\n    -webkit-text-decoration: underline dotted;\n    text-decoration: underline dotted;\n  }\n  h1, h2, h3, h4, h5, h6 {\n    font-size: inherit;\n    font-weight: inherit;\n  }\n  a {\n    color: inherit;\n    -webkit-text-decoration: inherit;\n    text-decoration: inherit;\n  }\n  b, strong {\n    font-weight: bolder;\n  }\n  code, kbd, samp, pre {\n    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace);\n    font-feature-settings: var(--default-mono-font-feature-settings, normal);\n    font-variation-settings: var(--default-mono-font-variation-settings, normal);\n    font-size: 1em;\n  }\n  small {\n    font-size: 80%;\n  }\n  sub, sup {\n    font-size: 75%;\n    line-height: 0;\n    position: relative;\n    vertical-align: baseline;\n  }\n  sub {\n    bottom: -0.25em;\n  }\n  sup {\n    top: -0.5em;\n  }\n  table {\n    text-indent: 0;\n    border-color: inherit;\n    border-collapse: collapse;\n  }\n  :-moz-focusring {\n    outline: auto;\n  }\n  progress {\n    vertical-align: baseline;\n  }\n  summary {\n    display: list-item;\n  }\n  ol, ul, menu {\n    list-style: none;\n  }\n  img, svg, video, canvas, audio, iframe, embed, object {\n    display: block;\n    vertical-align: middle;\n  }\n  img, video {\n    max-width: 100%;\n    height: auto;\n  }\n  button, input, select, optgroup, textarea, ::file-selector-button {\n    font: inherit;\n    font-feature-settings: inherit;\n    font-variation-settings: inherit;\n    letter-spacing: inherit;\n    color: inherit;\n    border-radius: 0;\n    background-color: transparent;\n    opacity: 1;\n  }\n  :where(select:is([multiple], [size])) optgroup {\n    font-weight: bolder;\n  }\n  :where(select:is([multiple], [size])) optgroup option {\n    padding-inline-start: 20px;\n  }\n  ::file-selector-button {\n    margin-inline-end: 4px;\n  }\n  ::placeholder {\n    opacity: 1;\n  }\n  @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {\n    ::placeholder {\n      color: currentcolor;\n      @supports (color: color-mix(in lab, red, red)) {\n        color: color-mix(in oklab, currentcolor 50%, transparent);\n      }\n    }\n  }\n  textarea {\n    resize: vertical;\n  }\n  ::-webkit-search-decoration {\n    -webkit-appearance: none;\n  }\n  ::-webkit-date-and-time-value {\n    min-height: 1lh;\n    text-align: inherit;\n  }\n  ::-webkit-datetime-edit {\n    display: inline-flex;\n  }\n  ::-webkit-datetime-edit-fields-wrapper {\n    padding: 0;\n  }\n  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {\n    padding-block: 0;\n  }\n  ::-webkit-calendar-picker-indicator {\n    line-height: 1;\n  }\n  :-moz-ui-invalid {\n    box-shadow: none;\n  }\n  button, input:where([type=\"button\"], [type=\"reset\"], [type=\"submit\"]), ::file-selector-button {\n    appearance: button;\n  }\n  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {\n    height: auto;\n  }\n  [hidden]:where(:not([hidden=\"until-found\"])) {\n    display: none !important;\n  }\n}\n@layer utilities {\n  .pointer-events-none {\n    pointer-events: none;\n  }\n  .absolute {\n    position: absolute;\n  }\n  .relative {\n    position: relative;\n  }\n  .static {\n    position: static;\n  }\n  .sticky {\n    position: sticky;\n  }\n  .inset-0 {\n    inset: calc(var(--spacing) * 0);\n  }\n  .-top-3 {\n    top: calc(var(--spacing) * -3);\n  }\n  .top-0 {\n    top: calc(var(--spacing) * 0);\n  }\n  .top-1\\/2 {\n    top: calc(1 / 2 * 100%);\n  }\n  .top-10 {\n    top: calc(var(--spacing) * 10);\n  }\n  .top-20 {\n    top: calc(var(--spacing) * 20);\n  }\n  .-right-3 {\n    right: calc(var(--spacing) * -3);\n  }\n  .right-0 {\n    right: calc(var(--spacing) * 0);\n  }\n  .right-10 {\n    right: calc(var(--spacing) * 10);\n  }\n  .-bottom-3 {\n    bottom: calc(var(--spacing) * -3);\n  }\n  .-bottom-4 {\n    bottom: calc(var(--spacing) * -4);\n  }\n  .bottom-0 {\n    bottom: calc(var(--spacing) * 0);\n  }\n  .bottom-10 {\n    bottom: calc(var(--spacing) * 10);\n  }\n  .-left-3 {\n    left: calc(var(--spacing) * -3);\n  }\n  .-left-4 {\n    left: calc(var(--spacing) * -4);\n  }\n  .left-0 {\n    left: calc(var(--spacing) * 0);\n  }\n  .left-1\\/2 {\n    left: calc(1 / 2 * 100%);\n  }\n  .left-10 {\n    left: calc(var(--spacing) * 10);\n  }\n  .left-\\[60\\%\\] {\n    left: 60%;\n  }\n  .z-0 {\n    z-index: 0;\n  }\n  .z-10 {\n    z-index: 10;\n  }\n  .z-50 {\n    z-index: 50;\n  }\n  .container {\n    width: 100%;\n    @media (width \u003e= 40rem) {\n      max-width: 40rem;\n    }\n    @media (width \u003e= 48rem) {\n      max-width: 48rem;\n    }\n    @media (width \u003e= 64rem) {\n      max-width: 64rem;\n    }\n    @media (width \u003e= 80rem) {\n      max-width: 80rem;\n    }\n    @media (width \u003e= 96rem) {\n      max-width: 96rem;\n    }\n  }\n  .mx-2 {\n    margin-inline: calc(var(--spacing) * 2);\n  }\n  .mx-auto {\n    margin-inline: auto;\n  }\n  .mt-0\\.5 {\n    margin-top: calc(var(--spacing) * 0.5);\n  }\n  .mt-1 {\n    margin-top: calc(var(--spacing) * 1);\n  }\n  .mt-2 {\n    margin-top: calc(var(--spacing) * 2);\n  }\n  .mt-3 {\n    margin-top: calc(var(--spacing) * 3);\n  }\n  .mt-4 {\n    margin-top: calc(var(--spacing) * 4);\n  }\n  .mt-6 {\n    margin-top: calc(var(--spacing) * 6);\n  }\n  .mt-8 {\n    margin-top: calc(var(--spacing) * 8);\n  }\n  .mt-12 {\n    margin-top: calc(var(--spacing) * 12);\n  }\n  .mb-0\\.5 {\n    margin-bottom: calc(var(--spacing) * 0.5);\n  }\n  .mb-1 {\n    margin-bottom: calc(var(--spacing) * 1);\n  }\n  .mb-1\\.5 {\n    margin-bottom: calc(var(--spacing) * 1.5);\n  }\n  .mb-2 {\n    margin-bottom: calc(var(--spacing) * 2);\n  }\n  .mb-3 {\n    margin-bottom: calc(var(--spacing) * 3);\n  }\n  .mb-4 {\n    margin-bottom: calc(var(--spacing) * 4);\n  }\n  .mb-5 {\n    margin-bottom: calc(var(--spacing) * 5);\n  }\n  .mb-6 {\n    margin-bottom: calc(var(--spacing) * 6);\n  }\n  .mb-7 {\n    margin-bottom: calc(var(--spacing) * 7);\n  }\n  .mb-8 {\n    margin-bottom: calc(var(--spacing) * 8);\n  }\n  .mb-10 {\n    margin-bottom: calc(var(--spacing) * 10);\n  }\n  .mb-12 {\n    margin-bottom: calc(var(--spacing) * 12);\n  }\n  .mb-14 {\n    margin-bottom: calc(var(--spacing) * 14);\n  }\n  .ml-3 {\n    margin-left: calc(var(--spacing) * 3);\n  }\n  .block {\n    display: block;\n  }\n  .flex {\n    display: flex;\n  }\n  .grid {\n    display: grid;\n  }\n  .hidden {\n    display: none;\n  }\n  .inline-block {\n    display: inline-block;\n  }\n  .inline-flex {\n    display: inline-flex;\n  }\n  .aspect-\\[4\\/5\\] {\n    aspect-ratio: 4/5;\n  }\n  .h-0\\.5 {\n    height: calc(var(--spacing) * 0.5);\n  }\n  .h-1\\.5 {\n    height: calc(var(--spacing) * 1.5);\n  }\n  .h-2 {\n    height: calc(var(--spacing) * 2);\n  }\n  .h-2\\.5 {\n    height: calc(var(--spacing) * 2.5);\n  }\n  .h-3 {\n    height: calc(var(--spacing) * 3);\n  }\n  .h-3\\.5 {\n    height: calc(var(--spacing) * 3.5);\n  }\n  .h-4 {\n    height: calc(var(--spacing) * 4);\n  }\n  .h-5 {\n    height: calc(var(--spacing) * 5);\n  }\n  .h-6 {\n    height: calc(var(--spacing) * 6);\n  }\n  .h-7 {\n    height: calc(var(--spacing) * 7);\n  }\n  .h-8 {\n    height: calc(var(--spacing) * 8);\n  }\n  .h-9 {\n    height: calc(var(--spacing) * 9);\n  }\n  .h-10 {\n    height: calc(var(--spacing) * 10);\n  }\n  .h-11 {\n    height: calc(var(--spacing) * 11);\n  }\n  .h-12 {\n    height: calc(var(--spacing) * 12);\n  }\n  .h-14 {\n    height: calc(var(--spacing) * 14);\n  }\n  .h-16 {\n    height: calc(var(--spacing) * 16);\n  }\n  .h-20 {\n    height: calc(var(--spacing) * 20);\n  }\n  .h-24 {\n    height: calc(var(--spacing) * 24);\n  }\n  .h-32 {\n    height: calc(var(--spacing) * 32);\n  }\n  .h-64 {\n    height: calc(var(--spacing) * 64);\n  }\n  .h-72 {\n    height: calc(var(--spacing) * 72);\n  }\n  .h-80 {\n    height: calc(var(--spacing) * 80);\n  }\n  .h-96 {\n    height: calc(var(--spacing) * 96);\n  }\n  .h-\\[400px\\] {\n    height: 400px;\n  }\n  .h-\\[500px\\] {\n    height: 500px;\n  }\n  .h-\\[600px\\] {\n    height: 600px;\n  }\n  .h-\\[800px\\] {\n    height: 800px;\n  }\n  .h-auto {\n    height: auto;\n  }\n  .h-full {\n    height: 100%;\n  }\n  .h-px {\n    height: 1px;\n  }\n  .min-h-\\[60vh\\] {\n    min-height: 60vh;\n  }\n  .min-h-\\[85vh\\] {\n    min-height: 85vh;\n  }\n  .min-h-\\[90vh\\] {\n    min-height: 90vh;\n  }\n  .min-h-screen {\n    min-height: 100vh;\n  }\n  .w-1\\.5 {\n    width: calc(var(--spacing) * 1.5);\n  }\n  .w-2 {\n    width: calc(var(--spacing) * 2);\n  }\n  .w-2\\.5 {\n    width: calc(var(--spacing) * 2.5);\n  }\n  .w-3 {\n    width: calc(var(--spacing) * 3);\n  }\n  .w-3\\.5 {\n    width: calc(var(--spacing) * 3.5);\n  }\n  .w-4 {\n    width: calc(var(--spacing) * 4);\n  }\n  .w-5 {\n    width: calc(var(--spacing) * 5);\n  }\n  .w-6 {\n    width: calc(var(--spacing) * 6);\n  }\n  .w-7 {\n    width: calc(var(--spacing) * 7);\n  }\n  .w-8 {\n    width: calc(var(--spacing) * 8);\n  }\n  .w-10 {\n    width: calc(var(--spacing) * 10);\n  }\n  .w-12 {\n    width: calc(var(--spacing) * 12);\n  }\n  .w-14 {\n    width: calc(var(--spacing) * 14);\n  }\n  .w-20 {\n    width: calc(var(--spacing) * 20);\n  }\n  .w-64 {\n    width: calc(var(--spacing) * 64);\n  }\n  .w-72 {\n    width: calc(var(--spacing) * 72);\n  }\n  .w-80 {\n    width: calc(var(--spacing) * 80);\n  }\n  .w-96 {\n    width: calc(var(--spacing) * 96);\n  }\n  .w-\\[80\\%\\] {\n    width: 80%;\n  }\n  .w-\\[400px\\] {\n    width: 400px;\n  }\n  .w-\\[500px\\] {\n    width: 500px;\n  }\n  .w-\\[600px\\] {\n    width: 600px;\n  }\n  .w-\\[800px\\] {\n    width: 800px;\n  }\n  .w-auto {\n    width: auto;\n  }\n  .w-full {\n    width: 100%;\n  }\n  .w-px {\n    width: 1px;\n  }\n  .max-w-2xl {\n    max-width: var(--container-2xl);\n  }\n  .max-w-3xl {\n    max-width: var(--container-3xl);\n  }\n  .max-w-4xl {\n    max-width: var(--container-4xl);\n  }\n  .max-w-5xl {\n    max-width: var(--container-5xl);\n  }\n  .max-w-md {\n    max-width: var(--container-md);\n  }\n  .max-w-xl {\n    max-width: var(--container-xl);\n  }\n  .flex-1 {\n    flex: 1;\n  }\n  .shrink-0 {\n    flex-shrink: 0;\n  }\n  .grow {\n    flex-grow: 1;\n  }\n  .-translate-x-1\\/2 {\n    --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .-translate-x-1\\/3 {\n    --tw-translate-x: calc(calc(1 / 3 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .translate-x-1\\/3 {\n    --tw-translate-x: calc(1 / 3 * 100%);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .-translate-y-1\\/2 {\n    --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .-translate-y-1\\/4 {\n    --tw-translate-y: calc(calc(1 / 4 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .translate-y-1\\/4 {\n    --tw-translate-y: calc(1 / 4 * 100%);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .text-gradient {\n    background: linear-gradient(135deg, #F59E0B 0%, #FCD34D 50%, #F59E0B 100%);\n    background-size: 200% auto;\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n    background-clip: text;\n    animation: gradient-shift 4s ease infinite;\n  }\n  .animate-fade-in-up {\n    animation: var(--animate-fade-in-up);\n  }\n  .animate-ping {\n    animation: var(--animate-ping);\n  }\n  .animate-spin {\n    animation: var(--animate-spin);\n  }\n  .cursor-pointer {\n    cursor: pointer;\n  }\n  .list-none {\n    list-style-type: none;\n  }\n  .grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n  .grid-cols-3 {\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n  }\n  .flex-col {\n    flex-direction: column;\n  }\n  .flex-wrap {\n    flex-wrap: wrap;\n  }\n  .items-center {\n    align-items: center;\n  }\n  .items-end {\n    align-items: flex-end;\n  }\n  .items-start {\n    align-items: flex-start;\n  }\n  .justify-between {\n    justify-content: space-between;\n  }\n  .justify-center {\n    justify-content: center;\n  }\n  .gap-1 {\n    gap: calc(var(--spacing) * 1);\n  }\n  .gap-1\\.5 {\n    gap: calc(var(--spacing) * 1.5);\n  }\n  .gap-2 {\n    gap: calc(var(--spacing) * 2);\n  }\n  .gap-2\\.5 {\n    gap: calc(var(--spacing) * 2.5);\n  }\n  .gap-3 {\n    gap: calc(var(--spacing) * 3);\n  }\n  .gap-4 {\n    gap: calc(var(--spacing) * 4);\n  }\n  .gap-5 {\n    gap: calc(var(--spacing) * 5);\n  }\n  .gap-6 {\n    gap: calc(var(--spacing) * 6);\n  }\n  .gap-8 {\n    gap: calc(var(--spacing) * 8);\n  }\n  .gap-10 {\n    gap: calc(var(--spacing) * 10);\n  }\n  .gap-12 {\n    gap: calc(var(--spacing) * 12);\n  }\n  .space-y-2 {\n    :where(\u0026 \u003e :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-3 {\n    :where(\u0026 \u003e :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 3) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-4 {\n    :where(\u0026 \u003e :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .-space-x-1\\.5 {\n    :where(\u0026 \u003e :not(:last-child)) {\n      --tw-space-x-reverse: 0;\n      margin-inline-start: calc(calc(var(--spacing) * -1.5) * var(--tw-space-x-reverse));\n      margin-inline-end: calc(calc(var(--spacing) * -1.5) * calc(1 - var(--tw-space-x-reverse)));\n    }\n  }\n  .overflow-hidden {\n    overflow: hidden;\n  }\n  .overflow-x-auto {\n    overflow-x: auto;\n  }\n  .rounded {\n    border-radius: 0.25rem;\n  }\n  .rounded-2xl {\n    border-radius: var(--radius-2xl);\n  }\n  .rounded-full {\n    border-radius: calc(infinity * 1px);\n  }\n  .rounded-lg {\n    border-radius: var(--radius-lg);\n  }\n  .rounded-md {\n    border-radius: var(--radius-md);\n  }\n  .rounded-xl {\n    border-radius: var(--radius-xl);\n  }\n  .rounded-t-sm {\n    border-top-left-radius: var(--radius-sm);\n    border-top-right-radius: var(--radius-sm);\n  }\n  .border {\n    border-style: var(--tw-border-style);\n    border-width: 1px;\n  }\n  .border-2 {\n    border-style: var(--tw-border-style);\n    border-width: 2px;\n  }\n  .border-t {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 1px;\n  }\n  .border-b {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 1px;\n  }\n  .border-brand\\/20 {\n    border-color: color-mix(in srgb, #F59E0B 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-brand) 20%, transparent);\n    }\n  }\n  .border-brand\\/30 {\n    border-color: color-mix(in srgb, #F59E0B 30%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-brand) 30%, transparent);\n    }\n  }\n  .border-gray-100 {\n    border-color: var(--color-gray-100);\n  }\n  .border-gray-200 {\n    border-color: var(--color-gray-200);\n  }\n  .border-input {\n    border-color: var(--color-input);\n  }\n  .border-red-200 {\n    border-color: var(--color-red-200);\n  }\n  .border-red-500\\/10 {\n    border-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-red-500) 10%, transparent);\n    }\n  }\n  .border-white\\/5 {\n    border-color: color-mix(in srgb, #fff 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n    }\n  }\n  .border-white\\/10 {\n    border-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .bg-accent-blue\\/5 {\n    background-color: color-mix(in srgb, #3B82F6 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-accent-blue) 5%, transparent);\n    }\n  }\n  .bg-accent-blue\\/8 {\n    background-color: color-mix(in srgb, #3B82F6 8%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-accent-blue) 8%, transparent);\n    }\n  }\n  .bg-amber-100 {\n    background-color: var(--color-amber-100);\n  }\n  .bg-brand {\n    background-color: var(--color-brand);\n  }\n  .bg-brand\\/5 {\n    background-color: color-mix(in srgb, #F59E0B 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand) 5%, transparent);\n    }\n  }\n  .bg-brand\\/10 {\n    background-color: color-mix(in srgb, #F59E0B 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand) 10%, transparent);\n    }\n  }\n  .bg-brand\\/15 {\n    background-color: color-mix(in srgb, #F59E0B 15%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand) 15%, transparent);\n    }\n  }\n  .bg-brand\\/20 {\n    background-color: color-mix(in srgb, #F59E0B 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand) 20%, transparent);\n    }\n  }\n  .bg-brand\\/40 {\n    background-color: color-mix(in srgb, #F59E0B 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand) 40%, transparent);\n    }\n  }\n  .bg-cream {\n    background-color: var(--color-cream);\n  }\n  .bg-cream\\/60 {\n    background-color: color-mix(in srgb, #F8FAFC 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-cream) 60%, transparent);\n    }\n  }\n  .bg-destructive {\n    background-color: var(--color-destructive);\n  }\n  .bg-gray-50 {\n    background-color: var(--color-gray-50);\n  }\n  .bg-gray-100 {\n    background-color: var(--color-gray-100);\n  }\n  .bg-gray-200 {\n    background-color: var(--color-gray-200);\n  }\n  .bg-green-100 {\n    background-color: var(--color-green-100);\n  }\n  .bg-primary {\n    background-color: var(--color-primary);\n  }\n  .bg-purple-100 {\n    background-color: var(--color-purple-100);\n  }\n  .bg-purple-500 {\n    background-color: var(--color-purple-500);\n  }\n  .bg-red-50 {\n    background-color: var(--color-red-50);\n  }\n  .bg-red-500\\/10 {\n    background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-red-500) 10%, transparent);\n    }\n  }\n  .bg-secondary {\n    background-color: var(--color-secondary);\n  }\n  .bg-surface {\n    background-color: var(--color-surface);\n  }\n  .bg-surface-alt {\n    background-color: var(--color-surface-alt);\n  }\n  .bg-transparent {\n    background-color: transparent;\n  }\n  .bg-white {\n    background-color: var(--color-white);\n  }\n  .bg-white\\/5 {\n    background-color: color-mix(in srgb, #fff 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n    }\n  }\n  .bg-white\\/10 {\n    background-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .bg-white\\/\\[0\\.02\\] {\n    background-color: color-mix(in srgb, #fff 2%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 2%, transparent);\n    }\n  }\n  .bg-gradient-to-br {\n    --tw-gradient-position: to bottom right in oklab;\n    background-image: linear-gradient(var(--tw-gradient-stops));\n  }\n  .bg-gradient-to-r {\n    --tw-gradient-position: to right in oklab;\n    background-image: linear-gradient(var(--tw-gradient-stops));\n  }\n  .bg-gradient-to-t {\n    --tw-gradient-position: to top in oklab;\n    background-image: linear-gradient(var(--tw-gradient-stops));\n  }\n  .bg-gradient-to-tr {\n    --tw-gradient-position: to top right in oklab;\n    background-image: linear-gradient(var(--tw-gradient-stops));\n  }\n  .from-accent-blue {\n    --tw-gradient-from: var(--color-accent-blue);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .from-brand {\n    --tw-gradient-from: var(--color-brand);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .from-brand-dark {\n    --tw-gradient-from: var(--color-brand-dark);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .from-brand\\/3 {\n    --tw-gradient-from: color-mix(in srgb, #F59E0B 3%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-gradient-from: color-mix(in oklab, var(--color-brand) 3%, transparent);\n    }\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .from-brand\\/20 {\n    --tw-gradient-from: color-mix(in srgb, #F59E0B 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-gradient-from: color-mix(in oklab, var(--color-brand) 20%, transparent);\n    }\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .from-brand\\/30 {\n    --tw-gradient-from: color-mix(in srgb, #F59E0B 30%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-gradient-from: color-mix(in oklab, var(--color-brand) 30%, transparent);\n    }\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .from-cream {\n    --tw-gradient-from: var(--color-cream);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .from-emerald-400 {\n    --tw-gradient-from: var(--color-emerald-400);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .from-surface {\n    --tw-gradient-from: var(--color-surface);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .via-brand-light {\n    --tw-gradient-via: var(--color-brand-light);\n    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);\n    --tw-gradient-stops: var(--tw-gradient-via-stops);\n  }\n  .via-surface\\/20 {\n    --tw-gradient-via: color-mix(in srgb, #0F172A 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-gradient-via: color-mix(in oklab, var(--color-surface) 20%, transparent);\n    }\n    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);\n    --tw-gradient-stops: var(--tw-gradient-via-stops);\n  }\n  .via-transparent {\n    --tw-gradient-via: transparent;\n    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);\n    --tw-gradient-stops: var(--tw-gradient-via-stops);\n  }\n  .to-accent-blue\\/3 {\n    --tw-gradient-to: color-mix(in srgb, #3B82F6 3%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-gradient-to: color-mix(in oklab, var(--color-accent-blue) 3%, transparent);\n    }\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-amber-400 {\n    --tw-gradient-to: var(--color-amber-400);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-amber-500 {\n    --tw-gradient-to: var(--color-amber-500);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-amber-600 {\n    --tw-gradient-to: var(--color-amber-600);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-blue-400 {\n    --tw-gradient-to: var(--color-blue-400);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-blue-500 {\n    --tw-gradient-to: var(--color-blue-500);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-brand {\n    --tw-gradient-to: var(--color-brand);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-brand-dark {\n    --tw-gradient-to: var(--color-brand-dark);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-brand-light {\n    --tw-gradient-to: var(--color-brand-light);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-brand\\/10 {\n    --tw-gradient-to: color-mix(in srgb, #F59E0B 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-gradient-to: color-mix(in oklab, var(--color-brand) 10%, transparent);\n    }\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-green-500 {\n    --tw-gradient-to: var(--color-green-500);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-transparent {\n    --tw-gradient-to: transparent;\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .bg-clip-text {\n    background-clip: text;\n  }\n  .fill-brand {\n    fill: var(--color-brand);\n  }\n  .object-contain {\n    object-fit: contain;\n  }\n  .object-cover {\n    object-fit: cover;\n  }\n  .p-1 {\n    padding: calc(var(--spacing) * 1);\n  }\n  .p-1\\.5 {\n    padding: calc(var(--spacing) * 1.5);\n  }\n  .p-4 {\n    padding: calc(var(--spacing) * 4);\n  }\n  .p-5 {\n    padding: calc(var(--spacing) * 5);\n  }\n  .p-6 {\n    padding: calc(var(--spacing) * 6);\n  }\n  .p-7 {\n    padding: calc(var(--spacing) * 7);\n  }\n  .px-2 {\n    padding-inline: calc(var(--spacing) * 2);\n  }\n  .px-3 {\n    padding-inline: calc(var(--spacing) * 3);\n  }\n  .px-4 {\n    padding-inline: calc(var(--spacing) * 4);\n  }\n  .px-5 {\n    padding-inline: calc(var(--spacing) * 5);\n  }\n  .px-6 {\n    padding-inline: calc(var(--spacing) * 6);\n  }\n  .px-8 {\n    padding-inline: calc(var(--spacing) * 8);\n  }\n  .py-1 {\n    padding-block: calc(var(--spacing) * 1);\n  }\n  .py-1\\.5 {\n    padding-block: calc(var(--spacing) * 1.5);\n  }\n  .py-2 {\n    padding-block: calc(var(--spacing) * 2);\n  }\n  .py-2\\.5 {\n    padding-block: calc(var(--spacing) * 2.5);\n  }\n  .py-3 {\n    padding-block: calc(var(--spacing) * 3);\n  }\n  .py-3\\.5 {\n    padding-block: calc(var(--spacing) * 3.5);\n  }\n  .py-4 {\n    padding-block: calc(var(--spacing) * 4);\n  }\n  .py-5 {\n    padding-block: calc(var(--spacing) * 5);\n  }\n  .py-6 {\n    padding-block: calc(var(--spacing) * 6);\n  }\n  .py-12 {\n    padding-block: calc(var(--spacing) * 12);\n  }\n  .py-16 {\n    padding-block: calc(var(--spacing) * 16);\n  }\n  .pt-2 {\n    padding-top: calc(var(--spacing) * 2);\n  }\n  .pt-4 {\n    padding-top: calc(var(--spacing) * 4);\n  }\n  .pt-8 {\n    padding-top: calc(var(--spacing) * 8);\n  }\n  .pt-16 {\n    padding-top: calc(var(--spacing) * 16);\n  }\n  .pb-4 {\n    padding-bottom: calc(var(--spacing) * 4);\n  }\n  .text-center {\n    text-align: center;\n  }\n  .font-mono {\n    font-family: var(--font-mono);\n  }\n  .text-2xl {\n    font-size: var(--text-2xl);\n    line-height: var(--tw-leading, var(--text-2xl--line-height));\n  }\n  .text-3xl {\n    font-size: var(--text-3xl);\n    line-height: var(--tw-leading, var(--text-3xl--line-height));\n  }\n  .text-4xl {\n    font-size: var(--text-4xl);\n    line-height: var(--tw-leading, var(--text-4xl--line-height));\n  }\n  .text-base {\n    font-size: var(--text-base);\n    line-height: var(--tw-leading, var(--text-base--line-height));\n  }\n  .text-lg {\n    font-size: var(--text-lg);\n    line-height: var(--tw-leading, var(--text-lg--line-height));\n  }\n  .text-sm {\n    font-size: var(--text-sm);\n    line-height: var(--tw-leading, var(--text-sm--line-height));\n  }\n  .text-xl {\n    font-size: var(--text-xl);\n    line-height: var(--tw-leading, var(--text-xl--line-height));\n  }\n  .text-xs {\n    font-size: var(--text-xs);\n    line-height: var(--tw-leading, var(--text-xs--line-height));\n  }\n  .text-\\[10px\\] {\n    font-size: 10px;\n  }\n  .leading-\\[1\\.06\\] {\n    --tw-leading: 1.06;\n    line-height: 1.06;\n  }\n  .leading-\\[1\\.08\\] {\n    --tw-leading: 1.08;\n    line-height: 1.08;\n  }\n  .leading-none {\n    --tw-leading: 1;\n    line-height: 1;\n  }\n  .leading-relaxed {\n    --tw-leading: var(--leading-relaxed);\n    line-height: var(--leading-relaxed);\n  }\n  .leading-tight {\n    --tw-leading: var(--leading-tight);\n    line-height: var(--leading-tight);\n  }\n  .font-bold {\n    --tw-font-weight: var(--font-weight-bold);\n    font-weight: var(--font-weight-bold);\n  }\n  .font-extrabold {\n    --tw-font-weight: var(--font-weight-extrabold);\n    font-weight: var(--font-weight-extrabold);\n  }\n  .font-medium {\n    --tw-font-weight: var(--font-weight-medium);\n    font-weight: var(--font-weight-medium);\n  }\n  .font-normal {\n    --tw-font-weight: var(--font-weight-normal);\n    font-weight: var(--font-weight-normal);\n  }\n  .font-semibold {\n    --tw-font-weight: var(--font-weight-semibold);\n    font-weight: var(--font-weight-semibold);\n  }\n  .tracking-tight {\n    --tw-tracking: var(--tracking-tight);\n    letter-spacing: var(--tracking-tight);\n  }\n  .tracking-wide {\n    --tw-tracking: var(--tracking-wide);\n    letter-spacing: var(--tracking-wide);\n  }\n  .tracking-wider {\n    --tw-tracking: var(--tracking-wider);\n    letter-spacing: var(--tracking-wider);\n  }\n  .tracking-widest {\n    --tw-tracking: var(--tracking-widest);\n    letter-spacing: var(--tracking-widest);\n  }\n  .whitespace-nowrap {\n    white-space: nowrap;\n  }\n  .text-amber-600 {\n    color: var(--color-amber-600);\n  }\n  .text-blue-600 {\n    color: var(--color-blue-600);\n  }\n  .text-brand {\n    color: var(--color-brand);\n  }\n  .text-charcoal\\/40 {\n    color: color-mix(in srgb, #F1F5F9 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-charcoal) 40%, transparent);\n    }\n  }\n  .text-charcoal\\/50 {\n    color: color-mix(in srgb, #F1F5F9 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-charcoal) 50%, transparent);\n    }\n  }\n  .text-charcoal\\/60 {\n    color: color-mix(in srgb, #F1F5F9 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-charcoal) 60%, transparent);\n    }\n  }\n  .text-charcoal\\/70 {\n    color: color-mix(in srgb, #F1F5F9 70%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-charcoal) 70%, transparent);\n    }\n  }\n  .text-cream {\n    color: var(--color-cream);\n  }\n  .text-cream\\/20 {\n    color: color-mix(in srgb, #F8FAFC 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-cream) 20%, transparent);\n    }\n  }\n  .text-cream\\/25 {\n    color: color-mix(in srgb, #F8FAFC 25%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-cream) 25%, transparent);\n    }\n  }\n  .text-cream\\/30 {\n    color: color-mix(in srgb, #F8FAFC 30%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-cream) 30%, transparent);\n    }\n  }\n  .text-cream\\/40 {\n    color: color-mix(in srgb, #F8FAFC 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-cream) 40%, transparent);\n    }\n  }\n  .text-cream\\/50 {\n    color: color-mix(in srgb, #F8FAFC 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-cream) 50%, transparent);\n    }\n  }\n  .text-cream\\/60 {\n    color: color-mix(in srgb, #F8FAFC 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-cream) 60%, transparent);\n    }\n  }\n  .text-cream\\/70 {\n    color: color-mix(in srgb, #F8FAFC 70%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-cream) 70%, transparent);\n    }\n  }\n  .text-cream\\/80 {\n    color: color-mix(in srgb, #F8FAFC 80%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-cream) 80%, transparent);\n    }\n  }\n  .text-destructive-foreground {\n    color: var(--color-destructive-foreground);\n  }\n  .text-gray-300 {\n    color: var(--color-gray-300);\n  }\n  .text-gray-400 {\n    color: var(--color-gray-400);\n  }\n  .text-gray-600 {\n    color: var(--color-gray-600);\n  }\n  .text-gray-700 {\n    color: var(--color-gray-700);\n  }\n  .text-gray-900 {\n    color: var(--color-gray-900);\n  }\n  .text-green-600 {\n    color: var(--color-green-600);\n  }\n  .text-primary {\n    color: var(--color-primary);\n  }\n  .text-primary-foreground {\n    color: var(--color-primary-foreground);\n  }\n  .text-purple-700 {\n    color: var(--color-purple-700);\n  }\n  .text-red-300 {\n    color: var(--color-red-300);\n  }\n  .text-red-400 {\n    color: var(--color-red-400);\n  }\n  .text-red-500 {\n    color: var(--color-red-500);\n  }\n  .text-secondary-foreground {\n    color: var(--color-secondary-foreground);\n  }\n  .text-slate-300 {\n    color: var(--color-slate-300);\n  }\n  .text-slate-400 {\n    color: var(--color-slate-400);\n  }\n  .text-slate-500 {\n    color: var(--color-slate-500);\n  }\n  .text-slate-600 {\n    color: var(--color-slate-600);\n  }\n  .text-surface {\n    color: var(--color-surface);\n  }\n  .text-transparent {\n    color: transparent;\n  }\n  .text-white {\n    color: var(--color-white);\n  }\n  .uppercase {\n    text-transform: uppercase;\n  }\n  .italic {\n    font-style: italic;\n  }\n  .underline-offset-4 {\n    text-underline-offset: 4px;\n  }\n  .opacity-25 {\n    opacity: 25%;\n  }\n  .opacity-30 {\n    opacity: 30%;\n  }\n  .opacity-75 {\n    opacity: 75%;\n  }\n  .opacity-\\[0\\.02\\] {\n    opacity: 0.02;\n  }\n  .opacity-\\[0\\.03\\] {\n    opacity: 0.03;\n  }\n  .shadow-2xl {\n    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-lg {\n    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-sm {\n    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-xl {\n    --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .ring-1 {\n    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .ring-2 {\n    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-black\\/20 {\n    --tw-shadow-color: color-mix(in srgb, #000 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-black) 20%, transparent) var(--tw-shadow-alpha), transparent);\n    }\n  }\n  .shadow-black\\/40 {\n    --tw-shadow-color: color-mix(in srgb, #000 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-black) 40%, transparent) var(--tw-shadow-alpha), transparent);\n    }\n  }\n  .shadow-brand\\/10 {\n    --tw-shadow-color: color-mix(in srgb, #F59E0B 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-brand) 10%, transparent) var(--tw-shadow-alpha), transparent);\n    }\n  }\n  .ring-surface {\n    --tw-ring-color: var(--color-surface);\n  }\n  .ring-white\\/10 {\n    --tw-ring-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-ring-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .ring-offset-background {\n    --tw-ring-offset-color: var(--color-background);\n  }\n  .outline {\n    outline-style: var(--tw-outline-style);\n    outline-width: 1px;\n  }\n  .blur-3xl {\n    --tw-blur: blur(var(--blur-3xl));\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .blur-\\[100px\\] {\n    --tw-blur: blur(100px);\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .blur-\\[120px\\] {\n    --tw-blur: blur(120px);\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .blur-\\[150px\\] {\n    --tw-blur: blur(150px);\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .backdrop-blur {\n    --tw-backdrop-blur: blur(8px);\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-md {\n    --tw-backdrop-blur: blur(var(--blur-md));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .glass {\n    background: rgba(30, 41, 59, 0.6);\n    backdrop-filter: blur(20px);\n    -webkit-backdrop-filter: blur(20px);\n    border: 1px solid rgba(255, 255, 255, 0.06);\n  }\n  .glass-light {\n    background: rgba(255, 255, 255, 0.03);\n    backdrop-filter: blur(16px);\n    -webkit-backdrop-filter: blur(16px);\n    border: 1px solid rgba(255, 255, 255, 0.06);\n  }\n  .transition-all {\n    transition-property: all;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-colors {\n    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-transform {\n    transition-property: transform, translate, scale, rotate;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .duration-200 {\n    --tw-duration: 200ms;\n    transition-duration: 200ms;\n  }\n  .duration-300 {\n    --tw-duration: 300ms;\n    transition-duration: 300ms;\n  }\n  .duration-500 {\n    --tw-duration: 500ms;\n    transition-duration: 500ms;\n  }\n  .group-open\\:rotate-180 {\n    \u0026:is(:where(.group):is([open], :popover-open, :open) *) {\n      rotate: 180deg;\n    }\n  }\n  .group-hover\\:translate-x-1 {\n    \u0026:is(:where(.group):hover *) {\n      @media (hover: hover) {\n        --tw-translate-x: calc(var(--spacing) * 1);\n        translate: var(--tw-translate-x) var(--tw-translate-y);\n      }\n    }\n  }\n  .group-hover\\:-translate-y-1 {\n    \u0026:is(:where(.group):hover *) {\n      @media (hover: hover) {\n        --tw-translate-y: calc(var(--spacing) * -1);\n        translate: var(--tw-translate-x) var(--tw-translate-y);\n      }\n    }\n  }\n  .group-hover\\:bg-brand {\n    \u0026:is(:where(.group):hover *) {\n      @media (hover: hover) {\n        background-color: var(--color-brand);\n      }\n    }\n  }\n  .group-hover\\:bg-brand\\/25 {\n    \u0026:is(:where(.group):hover *) {\n      @media (hover: hover) {\n        background-color: color-mix(in srgb, #F59E0B 25%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          background-color: color-mix(in oklab, var(--color-brand) 25%, transparent);\n        }\n      }\n    }\n  }\n  .group-hover\\:text-white {\n    \u0026:is(:where(.group):hover *) {\n      @media (hover: hover) {\n        color: var(--color-white);\n      }\n    }\n  }\n  .placeholder\\:text-gray-400 {\n    \u0026::placeholder {\n      color: var(--color-gray-400);\n    }\n  }\n  .hover\\:-translate-y-1 {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-translate-y: calc(var(--spacing) * -1);\n        translate: var(--tw-translate-x) var(--tw-translate-y);\n      }\n    }\n  }\n  .hover\\:scale-105 {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-scale-x: 105%;\n        --tw-scale-y: 105%;\n        --tw-scale-z: 105%;\n        scale: var(--tw-scale-x) var(--tw-scale-y);\n      }\n    }\n  }\n  .hover\\:scale-\\[1\\.03\\] {\n    \u0026:hover {\n      @media (hover: hover) {\n        scale: 1.03;\n      }\n    }\n  }\n  .hover\\:border-brand\\/20 {\n    \u0026:hover {\n      @media (hover: hover) {\n        border-color: color-mix(in srgb, #F59E0B 20%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          border-color: color-mix(in oklab, var(--color-brand) 20%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:border-brand\\/30 {\n    \u0026:hover {\n      @media (hover: hover) {\n        border-color: color-mix(in srgb, #F59E0B 30%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          border-color: color-mix(in oklab, var(--color-brand) 30%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:border-brand\\/40 {\n    \u0026:hover {\n      @media (hover: hover) {\n        border-color: color-mix(in srgb, #F59E0B 40%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          border-color: color-mix(in oklab, var(--color-brand) 40%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:border-white\\/20 {\n    \u0026:hover {\n      @media (hover: hover) {\n        border-color: color-mix(in srgb, #fff 20%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          border-color: color-mix(in oklab, var(--color-white) 20%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:bg-accent {\n    \u0026:hover {\n      @media (hover: hover) {\n        background-color: var(--color-accent);\n      }\n    }\n  }\n  .hover\\:bg-brand-dark {\n    \u0026:hover {\n      @media (hover: hover) {\n        background-color: var(--color-brand-dark);\n      }\n    }\n  }\n  .hover\\:bg-brand\\/10 {\n    \u0026:hover {\n      @media (hover: hover) {\n        background-color: color-mix(in srgb, #F59E0B 10%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          background-color: color-mix(in oklab, var(--color-brand) 10%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:bg-destructive\\/90 {\n    \u0026:hover {\n      @media (hover: hover) {\n        background-color: color-mix(in srgb, hsl(var(--destructive)) 90%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          background-color: color-mix(in oklab, var(--color-destructive) 90%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:bg-primary\\/90 {\n    \u0026:hover {\n      @media (hover: hover) {\n        background-color: color-mix(in srgb, hsl(var(--primary)) 90%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          background-color: color-mix(in oklab, var(--color-primary) 90%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:bg-secondary\\/80 {\n    \u0026:hover {\n      @media (hover: hover) {\n        background-color: color-mix(in srgb, hsl(var(--secondary)) 80%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          background-color: color-mix(in oklab, var(--color-secondary) 80%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:bg-white\\/5 {\n    \u0026:hover {\n      @media (hover: hover) {\n        background-color: color-mix(in srgb, #fff 5%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          background-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:bg-white\\/\\[0\\.02\\] {\n    \u0026:hover {\n      @media (hover: hover) {\n        background-color: color-mix(in srgb, #fff 2%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          background-color: color-mix(in oklab, var(--color-white) 2%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:bg-white\\/\\[0\\.04\\] {\n    \u0026:hover {\n      @media (hover: hover) {\n        background-color: color-mix(in srgb, #fff 4%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          background-color: color-mix(in oklab, var(--color-white) 4%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:from-brand-light {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-gradient-from: var(--color-brand-light);\n        --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n      }\n    }\n  }\n  .hover\\:to-brand {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-gradient-to: var(--color-brand);\n        --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n      }\n    }\n  }\n  .hover\\:text-accent-foreground {\n    \u0026:hover {\n      @media (hover: hover) {\n        color: var(--color-accent-foreground);\n      }\n    }\n  }\n  .hover\\:text-blue-800 {\n    \u0026:hover {\n      @media (hover: hover) {\n        color: var(--color-blue-800);\n      }\n    }\n  }\n  .hover\\:text-brand {\n    \u0026:hover {\n      @media (hover: hover) {\n        color: var(--color-brand);\n      }\n    }\n  }\n  .hover\\:text-brand-light {\n    \u0026:hover {\n      @media (hover: hover) {\n        color: var(--color-brand-light);\n      }\n    }\n  }\n  .hover\\:text-white {\n    \u0026:hover {\n      @media (hover: hover) {\n        color: var(--color-white);\n      }\n    }\n  }\n  .hover\\:underline {\n    \u0026:hover {\n      @media (hover: hover) {\n        text-decoration-line: underline;\n      }\n    }\n  }\n  .hover\\:shadow-\\[0_0_20px_rgba\\(245\\,166\\,35\\,0\\.3\\)\\] {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(245,166,35,0.3));\n        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n      }\n    }\n  }\n  .hover\\:shadow-\\[0_0_25px_rgba\\(245\\,166\\,35\\,0\\.4\\)\\] {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-shadow: 0 0 25px var(--tw-shadow-color, rgba(245,166,35,0.4));\n        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n      }\n    }\n  }\n  .hover\\:shadow-\\[0_0_30px_rgba\\(245\\,158\\,11\\,0\\.3\\)\\] {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(245,158,11,0.3));\n        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n      }\n    }\n  }\n  .hover\\:shadow-\\[0_0_40px_rgba\\(245\\,166\\,35\\,0\\.5\\)\\] {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-shadow: 0 0 40px var(--tw-shadow-color, rgba(245,166,35,0.5));\n        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n      }\n    }\n  }\n  .hover\\:shadow-\\[0_0_50px_rgba\\(245\\,158\\,11\\,0\\.25\\)\\] {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-shadow: 0 0 50px var(--tw-shadow-color, rgba(245,158,11,0.25));\n        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n      }\n    }\n  }\n  .hover\\:shadow-lg {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n      }\n    }\n  }\n  .hover\\:shadow-md {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n      }\n    }\n  }\n  .hover\\:shadow-xl {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n      }\n    }\n  }\n  .hover\\:shadow-brand\\/5 {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-shadow-color: color-mix(in srgb, #F59E0B 5%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-brand) 5%, transparent) var(--tw-shadow-alpha), transparent);\n        }\n      }\n    }\n  }\n  .hover\\:shadow-brand\\/30 {\n    \u0026:hover {\n      @media (hover: hover) {\n        --tw-shadow-color: color-mix(in srgb, #F59E0B 30%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-brand) 30%, transparent) var(--tw-shadow-alpha), transparent);\n        }\n      }\n    }\n  }\n  .focus\\:border-brand {\n    \u0026:focus {\n      border-color: var(--color-brand);\n    }\n  }\n  .focus\\:ring-2 {\n    \u0026:focus {\n      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);\n      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n    }\n  }\n  .focus\\:ring-brand\\/20 {\n    \u0026:focus {\n      --tw-ring-color: color-mix(in srgb, #F59E0B 20%, transparent);\n      @supports (color: color-mix(in lab, red, red)) {\n        --tw-ring-color: color-mix(in oklab, var(--color-brand) 20%, transparent);\n      }\n    }\n  }\n  .focus\\:outline-none {\n    \u0026:focus {\n      --tw-outline-style: none;\n      outline-style: none;\n    }\n  }\n  .focus-visible\\:ring-2 {\n    \u0026:focus-visible {\n      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);\n      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n    }\n  }\n  .focus-visible\\:ring-ring {\n    \u0026:focus-visible {\n      --tw-ring-color: var(--color-ring);\n    }\n  }\n  .focus-visible\\:ring-offset-2 {\n    \u0026:focus-visible {\n      --tw-ring-offset-width: 2px;\n      --tw-ring-offset-shadow: var(--tw-ring-inset,) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);\n    }\n  }\n  .focus-visible\\:outline-none {\n    \u0026:focus-visible {\n      --tw-outline-style: none;\n      outline-style: none;\n    }\n  }\n  .disabled\\:pointer-events-none {\n    \u0026:disabled {\n      pointer-events: none;\n    }\n  }\n  .disabled\\:bg-brand\\/60 {\n    \u0026:disabled {\n      background-color: color-mix(in srgb, #F59E0B 60%, transparent);\n      @supports (color: color-mix(in lab, red, red)) {\n        background-color: color-mix(in oklab, var(--color-brand) 60%, transparent);\n      }\n    }\n  }\n  .disabled\\:opacity-50 {\n    \u0026:disabled {\n      opacity: 50%;\n    }\n  }\n  .sm\\:grid-cols-2 {\n    @media (width \u003e= 40rem) {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n  }\n  .sm\\:grid-cols-3 {\n    @media (width \u003e= 40rem) {\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n    }\n  }\n  .sm\\:flex-row {\n    @media (width \u003e= 40rem) {\n      flex-direction: row;\n    }\n  }\n  .sm\\:text-3xl {\n    @media (width \u003e= 40rem) {\n      font-size: var(--text-3xl);\n      line-height: var(--tw-leading, var(--text-3xl--line-height));\n    }\n  }\n  .sm\\:text-4xl {\n    @media (width \u003e= 40rem) {\n      font-size: var(--text-4xl);\n      line-height: var(--tw-leading, var(--text-4xl--line-height));\n    }\n  }\n  .sm\\:text-5xl {\n    @media (width \u003e= 40rem) {\n      font-size: var(--text-5xl);\n      line-height: var(--tw-leading, var(--text-5xl--line-height));\n    }\n  }\n  .md\\:block {\n    @media (width \u003e= 48rem) {\n      display: block;\n    }\n  }\n  .md\\:flex {\n    @media (width \u003e= 48rem) {\n      display: flex;\n    }\n  }\n  .md\\:hidden {\n    @media (width \u003e= 48rem) {\n      display: none;\n    }\n  }\n  .md\\:h-10 {\n    @media (width \u003e= 48rem) {\n      height: calc(var(--spacing) * 10);\n    }\n  }\n  .md\\:h-11 {\n    @media (width \u003e= 48rem) {\n      height: calc(var(--spacing) * 11);\n    }\n  }\n  .md\\:h-20 {\n    @media (width \u003e= 48rem) {\n      height: calc(var(--spacing) * 20);\n    }\n  }\n  .md\\:grid-cols-2 {\n    @media (width \u003e= 48rem) {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n  }\n  .md\\:grid-cols-3 {\n    @media (width \u003e= 48rem) {\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n    }\n  }\n  .md\\:gap-8 {\n    @media (width \u003e= 48rem) {\n      gap: calc(var(--spacing) * 8);\n    }\n  }\n  .md\\:p-6 {\n    @media (width \u003e= 48rem) {\n      padding: calc(var(--spacing) * 6);\n    }\n  }\n  .md\\:p-7 {\n    @media (width \u003e= 48rem) {\n      padding: calc(var(--spacing) * 7);\n    }\n  }\n  .md\\:py-16 {\n    @media (width \u003e= 48rem) {\n      padding-block: calc(var(--spacing) * 16);\n    }\n  }\n  .md\\:py-20 {\n    @media (width \u003e= 48rem) {\n      padding-block: calc(var(--spacing) * 20);\n    }\n  }\n  .md\\:text-4xl {\n    @media (width \u003e= 48rem) {\n      font-size: var(--text-4xl);\n      line-height: var(--tw-leading, var(--text-4xl--line-height));\n    }\n  }\n  .md\\:text-5xl {\n    @media (width \u003e= 48rem) {\n      font-size: var(--text-5xl);\n      line-height: var(--tw-leading, var(--text-5xl--line-height));\n    }\n  }\n  .md\\:text-6xl {\n    @media (width \u003e= 48rem) {\n      font-size: var(--text-6xl);\n      line-height: var(--tw-leading, var(--text-6xl--line-height));\n    }\n  }\n  .md\\:text-base {\n    @media (width \u003e= 48rem) {\n      font-size: var(--text-base);\n      line-height: var(--tw-leading, var(--text-base--line-height));\n    }\n  }\n  .md\\:text-lg {\n    @media (width \u003e= 48rem) {\n      font-size: var(--text-lg);\n      line-height: var(--tw-leading, var(--text-lg--line-height));\n    }\n  }\n  .md\\:text-xl {\n    @media (width \u003e= 48rem) {\n      font-size: var(--text-xl);\n      line-height: var(--tw-leading, var(--text-xl--line-height));\n    }\n  }\n  .lg\\:col-span-1 {\n    @media (width \u003e= 64rem) {\n      grid-column: span 1 / span 1;\n    }\n  }\n  .lg\\:block {\n    @media (width \u003e= 64rem) {\n      display: block;\n    }\n  }\n  .lg\\:grid-cols-2 {\n    @media (width \u003e= 64rem) {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n  }\n  .lg\\:grid-cols-3 {\n    @media (width \u003e= 64rem) {\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n    }\n  }\n  .lg\\:grid-cols-4 {\n    @media (width \u003e= 64rem) {\n      grid-template-columns: repeat(4, minmax(0, 1fr));\n    }\n  }\n  .lg\\:justify-start {\n    @media (width \u003e= 64rem) {\n      justify-content: flex-start;\n    }\n  }\n  .lg\\:gap-6 {\n    @media (width \u003e= 64rem) {\n      gap: calc(var(--spacing) * 6);\n    }\n  }\n  .lg\\:gap-10 {\n    @media (width \u003e= 64rem) {\n      gap: calc(var(--spacing) * 10);\n    }\n  }\n  .lg\\:gap-14 {\n    @media (width \u003e= 64rem) {\n      gap: calc(var(--spacing) * 14);\n    }\n  }\n  .lg\\:gap-16 {\n    @media (width \u003e= 64rem) {\n      gap: calc(var(--spacing) * 16);\n    }\n  }\n  .lg\\:py-20 {\n    @media (width \u003e= 64rem) {\n      padding-block: calc(var(--spacing) * 20);\n    }\n  }\n  .lg\\:text-6xl {\n    @media (width \u003e= 64rem) {\n      font-size: var(--text-6xl);\n      line-height: var(--tw-leading, var(--text-6xl--line-height));\n    }\n  }\n  .lg\\:text-7xl {\n    @media (width \u003e= 64rem) {\n      font-size: var(--text-7xl);\n      line-height: var(--tw-leading, var(--text-7xl--line-height));\n    }\n  }\n}\n:root {\n  --background: 222 47% 6%;\n  --foreground: 210 40% 98%;\n  --card: 217 33% 17%;\n  --card-foreground: 210 40% 98%;\n  --popover: 217 33% 12%;\n  --popover-foreground: 210 40% 98%;\n  --primary: 38 92% 50%;\n  --primary-foreground: 222 47% 6%;\n  --secondary: 217 91% 60%;\n  --secondary-foreground: 210 40% 98%;\n  --muted: 217 33% 20%;\n  --muted-foreground: 215 20% 65%;\n  --accent: 38 92% 50%;\n  --accent-foreground: 222 47% 6%;\n  --destructive: 0 84.2% 60.2%;\n  --destructive-foreground: 210 40% 98%;\n  --border: 217 33% 22%;\n  --input: 217 33% 22%;\n  --ring: 38 92% 50%;\n  --radius: 0.625rem;\n}\n@layer base {\n  * {\n    border-color: var(--color-border);\n  }\n  body {\n    background-color: var(--color-surface);\n    font-family: var(--font-body);\n    color: var(--color-charcoal);\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n  h1, h2, h3, h4, h5, h6 {\n    font-family: var(--font-heading);\n    --tw-tracking: var(--tracking-tight);\n    letter-spacing: var(--tracking-tight);\n  }\n  .container {\n    margin-inline: auto;\n    max-width: var(--container-7xl);\n    padding-inline: calc(var(--spacing) * 5);\n  }\n}\n@property --tw-translate-x {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-y {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-z {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-space-y-reverse {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-space-x-reverse {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-border-style {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: solid;\n}\n@property --tw-gradient-position {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-from {\n  syntax: \"\u003ccolor\u003e\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-via {\n  syntax: \"\u003ccolor\u003e\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-to {\n  syntax: \"\u003ccolor\u003e\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-stops {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-via-stops {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-from-position {\n  syntax: \"\u003clength-percentage\u003e\";\n  inherits: false;\n  initial-value: 0%;\n}\n@property --tw-gradient-via-position {\n  syntax: \"\u003clength-percentage\u003e\";\n  inherits: false;\n  initial-value: 50%;\n}\n@property --tw-gradient-to-position {\n  syntax: \"\u003clength-percentage\u003e\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-leading {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-font-weight {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-tracking {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow-alpha {\n  syntax: \"\u003cpercentage\u003e\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-inset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-shadow-alpha {\n  syntax: \"\u003cpercentage\u003e\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-ring-inset {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-offset-width {\n  syntax: \"\u003clength\u003e\";\n  inherits: false;\n  initial-value: 0px;\n}\n@property --tw-ring-offset-color {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: #fff;\n}\n@property --tw-ring-offset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-outline-style {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: solid;\n}\n@property --tw-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-alpha {\n  syntax: \"\u003cpercentage\u003e\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-drop-shadow-size {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-duration {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-scale-x {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 1;\n}\n@property --tw-scale-y {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 1;\n}\n@property --tw-scale-z {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 1;\n}\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes ping {\n  75%, 100% {\n    transform: scale(2);\n    opacity: 0;\n  }\n}\n@keyframes fade-in-up {\n  from {\n    opacity: 0;\n    transform: translateY(24px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n@keyframes gradient-shift {\n  0%, 100% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n}\n@layer properties {\n  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {\n    *, ::before, ::after, ::backdrop {\n      --tw-translate-x: 0;\n      --tw-translate-y: 0;\n      --tw-translate-z: 0;\n      --tw-space-y-reverse: 0;\n      --tw-space-x-reverse: 0;\n      --tw-border-style: solid;\n      --tw-gradient-position: initial;\n      --tw-gradient-from: #0000;\n      --tw-gradient-via: #0000;\n      --tw-gradient-to: #0000;\n      --tw-gradient-stops: initial;\n      --tw-gradient-via-stops: initial;\n      --tw-gradient-from-position: 0%;\n      --tw-gradient-via-position: 50%;\n      --tw-gradient-to-position: 100%;\n      --tw-leading: initial;\n      --tw-font-weight: initial;\n      --tw-tracking: initial;\n      --tw-shadow: 0 0 #0000;\n      --tw-shadow-color: initial;\n      --tw-shadow-alpha: 100%;\n      --tw-inset-shadow: 0 0 #0000;\n      --tw-inset-shadow-color: initial;\n      --tw-inset-shadow-alpha: 100%;\n      --tw-ring-color: initial;\n      --tw-ring-shadow: 0 0 #0000;\n      --tw-inset-ring-color: initial;\n      --tw-inset-ring-shadow: 0 0 #0000;\n      --tw-ring-inset: initial;\n      --tw-ring-offset-width: 0px;\n      --tw-ring-offset-color: #fff;\n      --tw-ring-offset-shadow: 0 0 #0000;\n      --tw-outline-style: solid;\n      --tw-blur: initial;\n      --tw-brightness: initial;\n      --tw-contrast: initial;\n      --tw-grayscale: initial;\n      --tw-hue-rotate: initial;\n      --tw-invert: initial;\n      --tw-opacity: initial;\n      --tw-saturate: initial;\n      --tw-sepia: initial;\n      --tw-drop-shadow: initial;\n      --tw-drop-shadow-color: initial;\n      --tw-drop-shadow-alpha: 100%;\n      --tw-drop-shadow-size: initial;\n      --tw-backdrop-blur: initial;\n      --tw-backdrop-brightness: initial;\n      --tw-backdrop-contrast: initial;\n      --tw-backdrop-grayscale: initial;\n      --tw-backdrop-hue-rotate: initial;\n      --tw-backdrop-invert: initial;\n      --tw-backdrop-opacity: initial;\n      --tw-backdrop-saturate: initial;\n      --tw-backdrop-sepia: initial;\n      --tw-duration: initial;\n      --tw-scale-x: 1;\n      --tw-scale-y: 1;\n      --tw-scale-z: 1;\n    }\n  }\n}\n"};window.__reactRouterContext.stream = new ReadableStream({start(controller){window.__reactRouterContext.streamController = controller;}}).pipeThrough(new TextEncoderStream());
-
-import "/@id/__x00__virtual:react-router/inject-hmr-runtime";import "/@id/__x00__virtual:react-router/browser-manifest";
-import * as route0 from "/app/root.tsx";
-  
-  window.__reactRouterRouteModules = {"root":route0};
-
-import("/node_modules/@react-router/dev/dist/config/defaults/entry.client.tsx");
-
-window.__reactRouterContext.streamController.enqueue("[{\"_1\":2,\"_3\":-5,\"_4\":-5},\"loaderData\",{},\"actionData\",\"errors\"]\n");
-
-window.__reactRouterContext.streamController.close();
-
 /* ============================================================
-   ZuriAgency Dashboard — Core Application Logic
+   ZuriAgency — Master Script
+   Consolidated logic for all pages
    ============================================================ */
 
-// ─── State Management ───────────────────────────────────────
-const AppState = {
-  user: null,
-  transactions: [],
-  referrals: [],
-  notifications: [],
-  settings: {
-    currency: 'KES',
-    minWithdraw: 100,
-    maxWithdraw: 500000,
-    referralCommission: 350,
-    uplineBonus: 150,
-    payoutSpeedHours: 24,
-  },
-  tiers: [
-    { name: 'Bronze',  minRefs: 0,  commission: 350, uplineMultiplier: 1,   color: '#a8a29e', bonus: 0 },
-    { name: 'Silver',  minRefs: 5,  commission: 350, uplineMultiplier: 1,   color: '#94a3b8', bonus: 500 },
-    { name: 'Gold',    minRefs: 10, commission: 350, uplineMultiplier: 1,   color: '#f59e0b', bonus: 3000 },
-    { name: 'Platinum', minRefs: 25, commission: 400, uplineMultiplier: 1.5, color: '#8b5cf6', bonus: 8000 },
-    { name: 'Diamond', minRefs: 50, commission: 500, uplineMultiplier: 2,   color: '#06b6d4', bonus: 20000 },
-    { name: 'Elite',   minRefs: 100,commission: 600, uplineMultiplier: 3,   color: '#ec4899', bonus: 50000 },
-  ],
-  chartData: {
-    week: {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      direct: [700, 350, 1050, 0, 700, 350, 350],
-      upline: [0, 150, 150, 300, 0, 150, 0],
+/**
+ * THEME MANAGEMENT
+ * Handles light/dark mode persistence and toggling
+ */
+const ThemeManager = {
+    init() {
+        try {
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = saved ? saved === 'dark' : (saved === 'light' ? false : prefersDark);
+
+            this.setTheme(isDark);
+        } catch (e) {
+            console.error('Theme init error:', e);
+        }
+
+        // Bind toggle buttons
+        document.querySelectorAll('[aria-label="Toggle theme"], #themeToggle, #themeToggleMobile').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggle();
+            });
+        });
     },
-    month: {
-      labels: ['Wk 1', 'Wk 2', 'Wk 3', 'Wk 4'],
-      direct: [2800, 3500, 2100, 4200],
-      upline: [600, 900, 450, 1500],
+
+    setTheme(isDark) {
+        if (isDark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        this.updateIcons(isDark);
     },
-    year: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      direct: [3500, 4200, 5600, 4900, 6300, 7700, 8400, 9100, 10500, 11200, 12600, 14700],
-      upline: [900, 1200, 1800, 1500, 2100, 2700, 3000, 3300, 3900, 4200, 4800, 5700],
+
+    toggle() {
+        const isDark = !document.documentElement.classList.contains('dark');
+        this.setTheme(isDark);
     },
-  },
+
+    updateIcons(isDark) {
+        const moonIcon = document.getElementById('moonIcon');
+        const sunIcon = document.getElementById('sunIcon');
+        if (moonIcon && sunIcon) {
+            moonIcon.classList.toggle('hidden', isDark);
+            sunIcon.classList.toggle('hidden', !isDark);
+        }
+    }
 };
 
-// ─── Data Layer (localStorage Persistence) ──────────────────
-const Storage = {
-  _key(name) { return `zuri_${name}`; },
+/**
+ * MOBILE MENU
+ * Handles navigation visibility on mobile devices
+ */
+const MobileMenu = {
+    init() {
+        const btns = document.querySelectorAll('[aria-label="Toggle menu"], #mobileMenuBtn, #menuToggle, #mobileMenuButton, #sidebarClose');
+        const menu = document.getElementById('mobileMenu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('mobileOverlay');
 
-  get(name, fallback = null) {
-    try {
-      const raw = localStorage.getItem(this._key(name));
-      return raw ? JSON.parse(raw) : fallback;
-    } catch { return fallback; }
-  },
+        if (!menu && !sidebar) return;
 
-  set(name, value) {
-    try { localStorage.setItem(this._key(name), JSON.stringify(value)); }
-    catch (e) { console.warn('Storage write failed:', e); }
-  },
+        const toggle = (force) => {
+            const isOpening = force !== undefined ? force : (sidebar ? !sidebar.classList.contains('open') : (menu ? !menu.classList.contains('open') : false));
 
-  remove(name) { localStorage.removeItem(this._key(name)); },
+            if (menu) menu.classList.toggle('open', isOpening);
+            if (sidebar) sidebar.classList.toggle('open', isOpening);
+            if (overlay) overlay.classList.toggle('active', isOpening);
 
-  clear() {
-    Object.keys(localStorage)
-      .filter(k => k.startsWith('zuri_'))
-      .forEach(k => localStorage.removeItem(k));
-  },
+            // Update icons if they exist
+            const menuIcon = document.getElementById('menuIcon');
+            const closeIcon = document.getElementById('closeIcon');
+            if (menuIcon && closeIcon) {
+                menuIcon.classList.toggle('hidden', isOpening);
+                closeIcon.classList.toggle('hidden', !isOpening);
+            }
+
+            btns.forEach(btn => btn.setAttribute('aria-expanded', String(isOpening)));
+        };
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggle();
+            });
+        });
+
+        if (overlay) {
+            overlay.addEventListener('click', () => toggle(false));
+        }
+    }
 };
 
-// ─── ID / Code Generators ──────────────────────────────────
-function generateId() {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
-}
+/**
+ * SCROLL REVEAL & ANCHORS
+ * Animates elements as they enter the viewport and handles smooth scrolling
+ */
+const Navigation = {
+    init() {
+        // Scroll Reveal
+        const elements = document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale, .reveal, .reveal-left, .reveal-right');
+        if (elements.length > 0) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-function generateReferralCode(firstName, lastName) {
-  const clean = (s) => s.replace(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 4);
-  const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
-  return clean(firstName) + clean(lastName) + rand;
-}
+            elements.forEach(el => observer.observe(el));
+        }
 
-function generateTransactionRef() {
-  const prefix = 'ZTX';
-  const ts = Date.now().toString(36).toUpperCase();
-  const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
-  return `${prefix}-${ts}-${rand}`;
-}
-
-function generateMPesaReceipt() {
-  return 'SHK' + Date.now().toString().slice(-9) + Math.floor(Math.random() * 100);
-}
-
-// ─── Referral Link System ───────────────────────────────────
-const ReferralSystem = {
-  get code() {
-    return AppState.user?.referralCode || Storage.get('referralCode', '');
-  },
-
-  get link() {
-    const code = this.code;
-    if (!code) return '';
-    const base = window.location.origin || 'https://zuriagency.co.ke';
-    return `${base}/ref/${code}`;
-  },
-
-  createCode(user) {
-    const code = generateReferralCode(user.firstName, user.lastName);
-    Storage.set('referralCode', code);
-    if (AppState.user) AppState.user.referralCode = code;
-    return code;
-  },
-
-  async registerReferral(refCode) {
-    if (!refCode) return false;
-    const existing = Storage.get('registeredReferral', null);
-    if (existing) return false; // Already registered a referral
-
-    // Simulate server-side validation of referral code
-    const isValid = await this.validateReferralCode(refCode);
-    if (!isValid) return false;
-
-    Storage.set('registeredReferral', refCode);
-    return true;
-  },
-
-  async validateReferralCode(code) {
-    // Simulate an API call to validate the referral code
-    // In a real application, replace this with an actual API request
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const validCodes = ['ABCD1234', 'EFGH5678', 'IJKL9012']; // Example valid codes
-        resolve(validCodes.includes(code));
-      }, 500);
-    });
-  },
+        // Smooth Scroll for Anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    const menu = document.getElementById('mobileMenu');
+                    if (menu && menu.classList.contains('open')) {
+                        menu.classList.remove('open');
+                        setTimeout(() => menu.classList.add('hidden'), 400);
+                    }
+                }
+            });
+        });
+    }
 };
 
-// ─── Exported API ──────────────────────────────────────────
-export { AppState, Storage, ReferralSystem, generateId, generateTransactionRef, generateMPesaReceipt };
+/**
+ * STAT COUNTERS
+ * Animates numbers from 0 to target
+ */
+const StatCounters = {
+    init() {
+        const elements = document.querySelectorAll('[data-count], .stat-number');
+        if (elements.length === 0) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animate(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        elements.forEach(el => observer.observe(el));
+    },
+
+    format(num, format) {
+        if (format === 'short') {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
+        }
+        return num.toLocaleString();
+    },
+
+    animate(el) {
+        const target = parseInt(el.dataset.count || el.textContent.replace(/[^0-9]/g, ''));
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const format = el.dataset.format || '';
+        const duration = 2000;
+        const startTime = performance.now();
+
+        const update = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(target * eased);
+
+            el.textContent = prefix + this.format(current, format) + suffix;
+
+            if (progress < 1) requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);
+    }
+};
+
+/**
+ * EARNING CALCULATOR
+ * Logic for the interactive profit calculator
+ */
+const EarningCalculator = {
+    init() {
+        const refSlider = document.getElementById('referralSlider') || document.getElementById('calcReferrals');
+        const teamSlider = document.getElementById('teamSlider') || document.getElementById('calcTeam');
+
+        if (!refSlider || !teamSlider) return;
+
+        const update = () => this.update();
+        refSlider.addEventListener('input', update);
+        teamSlider.addEventListener('input', update);
+        this.update();
+    },
+
+    update() {
+        const refSlider = document.getElementById('referralSlider') || document.getElementById('calcReferrals');
+        const teamSlider = document.getElementById('teamSlider') || document.getElementById('calcTeam');
+
+        const refs = parseInt(refSlider.value);
+        const team = parseInt(teamSlider.value);
+
+        // Update labels if they exist
+        const refVal = document.getElementById('referralCount') || document.getElementById('calcRefVal');
+        const teamVal = document.getElementById('teamCount') || document.getElementById('calcTeamVal');
+        if (refVal) refVal.textContent = refs;
+        if (teamVal) teamVal.textContent = team;
+
+        const direct = refs * 350;
+        const passive = (document.getElementById('teamSlider')) ? (refs * team * 150) : (team * 150);
+        const total = direct + passive;
+
+        const directEl = document.getElementById('directEarnings');
+        const passiveEl = document.getElementById('passiveEarnings');
+        const totalEl = document.getElementById('totalEarnings') || document.getElementById('calcResult');
+        const netEl = document.getElementById('netProfit');
+        const dailyEl = document.getElementById('calcDaily');
+
+        if (directEl) directEl.textContent = `KES ${direct.toLocaleString()}`;
+        if (passiveEl) passiveEl.textContent = `KES ${passive.toLocaleString()}`;
+        if (totalEl) totalEl.textContent = `KES ${total.toLocaleString()}`;
+        if (netEl) netEl.textContent = `KES ${(total - 1000).toLocaleString()}`;
+        if (dailyEl) dailyEl.textContent = Math.round(total / 30);
+
+        const progress = document.getElementById('progressBar');
+        if (progress) {
+            const max = 335000;
+            progress.style.width = Math.min(100, (total / max) * 100) + '%';
+        }
+    }
+};
+
+/**
+ * FORM VALIDATION
+ * Shared logic for registration and contact forms
+ */
+const FormValidator = {
+    init() {
+        const regForm = document.getElementById('registerForm');
+        if (regForm) {
+            regForm.addEventListener('submit', (e) => {
+                if (!this.validateRegistration(regForm)) {
+                    e.preventDefault();
+                } else if (regForm.id === 'registerForm' && !regForm.action.includes('http')) {
+                    // Demo success message if no real action
+                    e.preventDefault();
+                    const success = document.getElementById('successMessage');
+                    if (success) success.classList.add('show');
+                    regForm.reset();
+                    setTimeout(() => success && success.classList.remove('show'), 3000);
+                }
+            });
+        }
+    },
+
+    validateRegistration(form) {
+        let isValid = true;
+        const name = form.querySelector('#name');
+        const email = form.querySelector('#email');
+        const phone = form.querySelector('#phone');
+        const pass = form.querySelector('#password');
+        const confirm = form.querySelector('#confirmPassword');
+
+        const setError = (el, show) => {
+            const err = document.getElementById(el.id + 'Error');
+            if (err) err.classList.toggle('show', show);
+            return !show;
+        };
+
+        if (name) isValid &= setError(name, name.value.trim().length < 3);
+        if (email) isValid &= setError(email, !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()));
+        if (phone) isValid &= setError(phone, phone.value.replace(/\D/g, '').length < 10);
+        if (pass) isValid &= setError(pass, pass.value.length < 8);
+        if (confirm) isValid &= setError(confirm, confirm.value !== pass.value || confirm.value === '');
+
+        return !!isValid;
+    }
+};
+
+/**
+ * TOAST NOTIFICATIONS
+ */
+function showToast(message, type = 'success') {
+    let container = document.getElementById('toastContainer');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toastContainer';
+        container.className = 'fixed top-4 right-4 z-[100] flex flex-col gap-2';
+        document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    const colors = {
+        success: 'border-green-500/30 bg-green-500/10 text-green-400',
+        error: 'border-red-500/30 bg-red-500/10 text-red-400',
+        info: 'border-blue-500/30 bg-blue-500/10 text-blue-400'
+    };
+
+    toast.className = `glass rounded-xl px-4 py-3 flex items-center gap-3 border ${colors[type]} min-w-[280px] transition-all duration-400 translate-x-[120%]`;
+    toast.innerHTML = `<span class="text-xs font-medium">${message}</span>`;
+
+    container.appendChild(toast);
+    requestAnimationFrame(() => toast.style.transform = 'translateX(0)');
+
+    setTimeout(() => {
+        toast.style.transform = 'translateX(120%)';
+        setTimeout(() => toast.remove(), 400);
+    }, 3500);
+}
+
+// ─── Initialize All ────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    ThemeManager.init();
+    MobileMenu.init();
+    Navigation.init();
+    StatCounters.init();
+    EarningCalculator.init();
+    FormValidator.init();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+});
